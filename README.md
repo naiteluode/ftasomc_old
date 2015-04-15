@@ -34,10 +34,10 @@ web: python manage.py runserver $VCAP_APP_HOST:$PORT
 ```
 注：`web:`指明当前运行的进程的类型为web类型，请参考[Procfile文件介绍](http://docs.coding.io/references/procfile)；`$VCAP_APP_HOST`和`$PORT`是当前系统的环境变量，请参考[环境变量](http://docs.coding.io/references/env#vcap_app_host)。
 
-本文档写于2015年4月15日。
+本文档参考[Python 语言支持](http://docs.coding.io/languages/python)，最后更新于2015年4月15日。
 ## 本地测试
 
-* 安装 [Python](https://www.python.org/) 和 [Virtualenv](https://pypi.python.org/pypi/virtualenv)，[查看参考文档](http://install.python-guide.org)。
+* 安装 [Python](https://www.python.org/) 和 [Virtualenv](https://pypi.python.org/pypi/virtualenv)，查看[参考文档](http://install.python-guide.org)。
 * 执行下面命令创建一个 [Virtualenv](https://pypi.python.org/pypi/virtualenv) 并在里面启动项目：
 
 ```
