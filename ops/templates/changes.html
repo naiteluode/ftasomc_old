@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+{% extends "base.html" %}
+{% block title %}
+<title>OMC-变更管理</title>
+{% endblock %}
+{% block contentwrapperpage%}
+    <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            变更管理
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
+            <li class="active">变更管理</li>
+          </ol>
+        </section>
+        <br>
+        <!-- Main content -->
+        <section class="content">
+          <div class="panel-body">
+            <h2>此页正在施工中！</h2>
+        </div>
+          </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+             
+    
+    <!-- jQuery 2.1.4 -->
+    <script src="/static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <!-- DataTables -->
+    <script src="/static/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/static/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="/static/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- page script -->
+    <script>
+      $(function () {
+        $("#example1").DataTable();
+        $('#example2').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false
+        });
+      });
+    </script>
+{% endblock %}
+</html>

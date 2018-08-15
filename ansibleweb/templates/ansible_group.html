@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+{% extends "ansible.html" %}
+{% block title %}
+<title>Ansible主机组</title>
+{% endblock %}
+{% block pageheader %}
+ <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Ansible主机
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
+            <li class="active">Ansible主机</li>
+          </ol>
+        </section>
+{% endblock%}
+{% block ansiblebody %}
+<h3>&nbsp&nbsp&nbsp&nbsp主机分组</h3>
+<form class="form-inline col-md-11" action="" method="post" style="margin-bottom:0;">
+    主机组名:&nbsp&nbsp<input type="text" name='groupname' class="input-small" placeholder="输入组名">
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    主机IP地址:&nbsp&nbsp<input type="text" name='hosts' class="span5" placeholder="输入主机IP地址">
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <button type="submit" name='add' class="btn btn-info btn-xs">添加分组</button>
+    &nbsp&nbsp
+    <button type="submit" name='modf' class="btn btn-warning btn-xs">修改分组</button>
+    &nbsp&nbsp
+    <button type="submit" name='del' class="btn btn-danger btn-xs">删除分组</button>
+    <br>
+    {% if msg %}
+        <font color='red'>
+            {{ msg }}
+        </font>
+    {% endif %}
+</form>
+<br>
+<hr style="border:0;background-color:#0099CC;height:1px;">
+<table class="table">
+<th>组名</th><th>主机</th>
+{% for k,v in rets.items %}
+<tr>
+    <td>{{k}}</td>
+    <td>{{v}}</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}
+</html>

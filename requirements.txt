@@ -1,1 +1,9 @@
-Django==1.7
+Django==1.8.5
+django-suit==0.2.15
+django-session-security
+paramiko
+utils
+psutil
+simplejson
+MySQLdb-python
+cobbler

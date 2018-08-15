@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+{% extends "base.html" %}
+{% block title %}
+<title>OMC-404页面</title>
+{% endblock %}
+{% block contentwrapperpage%}
+    <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            404错误
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
+            <li class="active">404错误</li>
+          </ol>
+        </section>
+        <br>
+        <!-- Main content -->
+        <section class="content">
+      <div class="error-page">
+        <h2 class="headline text-yellow"> 404</h2>
+
+        <div class="error-content">
+          <h3><i class="fa fa-warning text-yellow"></i> 抱歉！页面正在溜号中……</h3>
+
+          <p>
+            查看的页面不存在.
+            你可以 <a href="/">返回控制台</a> 或者尝试搜索.
+          </p>
+
+          <form class="search-form">
+            <div class="input-group">
+              <input type="text" name="search" class="form-control" placeholder="搜索">
+
+              <div class="input-group-btn">
+                <button type="submit" name="submit" class="btn btn-warning btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.input-group -->
+          </form>
+        </div>
+        <!-- /.error-content -->
+      </div>
+      <!-- /.error-page -->
+    </section>
+    <!-- /.content -->
+      </div><!-- /.content-wrapper -->
+             
+    
+    <!-- jQuery 2.1.4 -->
+    <script src="/static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <!-- DataTables -->
+    <script src="/static/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/static/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="/static/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- page script -->
+    <script>
+      $(function () {
+        $("#example1").DataTable();
+        $('#example2').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false
+        });
+      });
+    </script>
+{% endblock %}
+</html>

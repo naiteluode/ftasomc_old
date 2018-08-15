@@ -1,0 +1,4 @@
+- hosts: '{{ ip }}'
+  tasks:
+    - name: Playbook Proccess - Test
+      shell: echo -e "group:"+{{group}}+",ip:"+{{ip}}+",item:"+{{item}}

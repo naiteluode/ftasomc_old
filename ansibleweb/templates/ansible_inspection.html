@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+{% extends "ansible.html" %}
+{% block title %}
+<title>Ansible一键巡检</title>
+{% endblock %}
+{% block pageheader %}
+ <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Ansible一键巡检
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
+            <li class="active">Ansible一键巡检</li>
+          </ol>
+        </section>
+{% endblock%}
+{% block ansiblebody %}
+<div class="container theme-showcase" role="main">
+    <div class="row">
+        <div class="col-md-11">
+             <div class="panel panel-default">
+                  <div class="panel-body">
+                         <form class="form-horizontal form-border" method="post" enctype="multipart/form-data" action="/ansible/cmd/?action=exec">
+							<table align="left" valign="top" width="100%" border="0">
+								<tbody>
+									示例：点击巡检按钮，巡检结果以图表形式返回。
+									<tr>
+										<hr>
+										<td>
+										<input class="formbuton" type="submit" value="检查存活" name="command">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						 </form>
+					<br/>
+					<hr>
+					<br>
+					<div style="height:450px">
+					<pre style="height:400px">{{ output  }}</pre>
+					</div>
+				  </div>
+             </div>
+        </div>
+   </div>
+   <!--row end-->
+</div> <!-- /container -->
+{% endblock %}
+</html>

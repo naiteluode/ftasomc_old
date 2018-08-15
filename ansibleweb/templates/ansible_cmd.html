@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+{% extends "ansible.html" %}
+{% block title %}
+<title>Ansible执行命令</title>
+{% endblock %}
+{% block pageheader %}
+ <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Ansible执行命令
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
+            <li class="active">Ansible执行命令</li>
+          </ol>
+        </section>
+{% endblock%}
+{% block ansiblebody %}
+<div class="container theme-showcase" role="main">
+    <div class="row">
+        <div class="col-md-11">
+             <div class="panel panel-default">
+                  <div class="panel-body">
+                         <form class="form-horizontal form-border" method="post" enctype="multipart/form-data" action="/ansible/cmd/?action=exec">
+							<table align="left" valign="top" width="100%" border="0">
+								<tbody>
+									示例：ansible '主机组/主机IP地址' -m '模块名' -a ‘命令’
+									<tr>
+										<hr>
+										<td><font class="label2">命令:</font></td>
+										<td>
+										<input class="formtext2" type="text" name="command" size="100">
+										<input class="formbuton" type="submit" value="提交">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						 </form>
+					<br/>
+					<br>
+					<div style="height:450px">
+					<pre style="height:400px">{{ output  }}</pre>
+					</div>
+				  </div>
+             </div>
+        </div>
+   </div>
+   <!--row end-->
+</div> <!-- /container -->
+{% endblock %}
+</html>

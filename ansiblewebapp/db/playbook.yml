@@ -1,0 +1,11 @@
+- name: setting hostname
+  hosts: new
+  vars_prompt:
+    - name: HOSTNAME
+      promtp: enter hostname
+      private: no
+  tasks:
+    - template: src=./hosts.j2 dest=/etc/hosts
+    - template: src=./network.j2 dest=/etc/sysconfig/network
+    - shell: hostname {{ HOSTNAME }}{{ansible_default_ipv4.address.split('.')[-1]}}
+    - shell: ntpdate 10.39.109.21

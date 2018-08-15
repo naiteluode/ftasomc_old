@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+{% extends "base.html" %}
+{% block title %}
+<title>OMC-资产信息</title>
+{% endblock %}
+{% block contentwrapperpage%}
+        {% csrf_token %}
+    <div class="row" >
+
+        {% include 'hosts/host_list_menu_component.html' %}
+        {% include 'hosts/hosts_multi_cmd_component.html' %}
+
+    </div> <!--end row-->
+    <div class="row">
+        {% include 'hosts/hosts_recent_task_component.html' %}
+
+    </div>
+
+
+
+
+
+{% include 'hosts/multi_task_modal_component.html' %}
+
+{% include 'hosts/multi_task_js_component.html' %}
+{% endblock %}
+</html>

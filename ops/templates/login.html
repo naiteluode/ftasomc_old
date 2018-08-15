@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+{% extends "base.html" %}
+{% block title %}
+<title>OMC-登录</title>
+{% endblock %}
+{% block body %}
+<body class="hold-transition login-page">
+    <div class="login-box">
+      <div class="login-logo">
+        <!--<a href="/index"><b>OMC</b></a>-->
+        <img src="/static/dist/img/shortcut.png" alt="OMC Logo"  >
+      </div><!-- /.login-logo -->
+      <div class="login-box-body">
+        <p class="login-box-msg">欢迎使用OMC运维平台</p>
+        <form id="loginForm" action="{% url 'login' %}?next={{ next  }}" method="POST"> {% csrf_token %}
+          <div class="form-group has-feedback">
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-user"></i></div>
+              <!--<span class="glyphicon glyphicon-user form-control-feedback"></span>-->
+              <input type="text" class="form-control" name="username" placeholder="用户名">
+            </div>
+          </div>
+          <div class="form-group has-feedback">
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
+              <!--<span class="glyphicon glyphicon-lock form-control-feedback"></span>-->
+              <input type="password" class="form-control" name="password" placeholder="密码">
+            </div>
+          </div>
+          <!--div class="row">
+							<div class="col-xs-8 text-left checkbox">
+								<label class="form-checkbox form-icon">
+								<input type="checkbox"> 记住我
+								</label>
+							</div>
+						</div>
+						<div class="mar-btm"><em>- or -</em></div-->
+						<button class="btn btn-success  btn-block" type="submit">
+							<b>登录</b>
+						</button>
+                        <input type="hidden" name="next" value="{{ next }}" />
+                        <h4 style="color: red"><b>{{ login_err }}</b></h4>
+					</form>
+        <br>
+        <!--<a href="#" class="btn btn-primary pull-right">忘记密码</a>
+        &nbsp;&nbsp;
+        <a href="register.html" class="btn btn-primary pull-left">新建用户</a>-->
+        
+      </div><!-- /.login-box-body -->
+    </div><!-- /.login-box -->
+
+    <!-- jQuery 2.1.4 -->
+    <script src="/static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <!-- iCheck -->
+    <script src="/static/plugins/iCheck/icheck.min.js"></script>
+    <!-- BootstrapValidator -->
+    <script src="/static/login/js/bootstrapValidator.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+          $('#loginForm').bootstrapValidator({
+              message: 'This value is not valid',
+              feedbackIcons: {
+                  valid: 'glyphicon glyphicon-ok',
+                  invalid: 'glyphicon glyphicon-remove',
+                  validating: 'glyphicon glyphicon-refresh'
+              },
+              fields: {
+                  username: {
+                      message: '用户名无效',
+                      validators: {
+                          notEmpty: {
+                              message: '必须输入用户名，并且不能为空'
+                          },
+                          stringLength: {
+                              min: 2,
+                              max: 30,
+                              message: '用户名必须大于2，小于30个字符'
+                          },
+                          regexp: {
+                              regexp: /^[a-zA-Z0-9_]+$/,
+                              message: '用户名只能由字母、数字和下划线组成'
+                          }
+                      }
+                  },
+                  password:{
+                      message: "密码无效",
+                      validators:{
+                          notEmpty:{
+                              'message': "必须输入密码，并且不能为空"
+                          },
+                          stringLength:{
+                              min:3,
+                              max:30,
+                              message:'密码必须大于3，小于30个字符'
+                          },
+                      }
+                  },
+      
+                  email: {
+                      validators: {
+                          notEmpty: {
+                              message: '必须输入电子邮件，并且不能为空'
+                          },
+                          emailAddress: {
+                              message: '电子邮件地址不正确'
+                          }
+                      }
+                  }
+              }
+          });
+      });
+      
+      </script>
+  </body>
+{% endblock %}
+</html>

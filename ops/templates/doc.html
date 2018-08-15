@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+{% extends "base.html" %}
+{% block title %}
+<title>OMC-文档</title>
+{% endblock %}
+{% block css%}
+<!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- The fav icon -->
+    <link rel="shortcut icon" href="/static/dist/img/shortcut.png">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/static/dist/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/static/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/static/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="/static/dist/css/style.css">
+{% endblock %}
+{% block body %}
+{% block leftsidecolumn%}
+<!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <div class="sidebar" id="scrollspy">
+
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="nav sidebar-menu">
+            <li class="header">TABLE OF CONTENTS</li>
+            <li class="active"><a href="#introduction"><i class="fa fa-circle-o"></i> Introduction</a></li>
+            <li><a href="#download"><i class="fa fa-circle-o"></i> Download</a></li>
+            <li><a href="#dependencies"><i class="fa fa-circle-o"></i> Dependencies</a></li>
+            <li><a href="#advice"><i class="fa fa-circle-o"></i> Advice</a></li>
+            <li><a href="#layout"><i class="fa fa-circle-o"></i> Layout</a></li>
+            <li><a href="#adminlte-options"><i class="fa fa-circle-o"></i> Javascript Options</a></li>
+            <li class="treeview" id="scrollspy-components">
+              <a href="javascript::;"><i class="fa fa-circle-o"></i> Components</a>
+              <ul class="nav treeview-menu">
+                <li><a href="#component-main-header">Main Header</a></li>
+                <li><a href="#component-sidebar">Sidebar</a></li>
+                <li><a href="#component-control-sidebar">Control Sidebar</a></li>
+                <li><a href="#component-info-box">Info Box</a></li>
+                <li><a href="#component-box">Boxes</a></li>
+                <li><a href="#component-direct-chat">Direct Chat</a></li>
+              </ul>
+            </li>
+            <li><a href="#plugins"><i class="fa fa-circle-o"></i> Plugins</a></li>
+            <li><a href="#browsers"><i class="fa fa-circle-o"></i> Browser Support</a></li>
+            <li><a href="#upgrade"><i class="fa fa-circle-o"></i> Upgrade Guide</a></li>
+            <li><a href="#implementations"><i class="fa fa-circle-o"></i> Implementations</a></li>
+            <li><a href="#faq"><i class="fa fa-circle-o"></i> FAQ</a></li>
+            <li><a href="#license"><i class="fa fa-circle-o"></i> License</a></li>
+            <li><a href="/"><i class="fa fa-circle-o"></i> 返回控制台</a></li>
+          </ul>
+        </div>
+        <!-- /.sidebar -->
+      </aside>
+{% endblock %}
+
+<body class="skin-green fixed" data-spy="scroll" data-target="#scrollspy">
+    <div class="wrapper">
+
+      <header class="main-header">
+        <!-- Logo -->
+        <!-- Logo -->
+        <a href="/" class="logo">
+          <!--<img alt="OMC Logo" src="/static/dist/img/shortcut.png" width="30" class="hidden-xs pull-left brand-icon"/>-->
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini"><b>O</b>MC</span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg"><b>OMC</b>运维平台</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+          {% block navbarrightmenu %}
+          <!-- Navbar Right Menu -->
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <!-- Messages: style can be found in dropdown.less-->
+              <li class="dropdown messages-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-envelope-o"></i>
+                  <span class="label label-success">1</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="header">You have 4 messages</li>
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                      <li><!-- start message -->
+                        <a href="#">
+                          <div class="pull-left">
+                            <img src="" class="img-circle" alt="User Image">
+                          </div>
+                          <h4>
+                            技术支持部
+                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                          </h4>
+                          <p>有1条新信息</p>
+                        </a>
+                      </li><!-- end message -->
+                    </ul>
+                  </li>
+                  <li class="footer"><a href="#">查看所有信息</a></li>
+                </ul>
+              </li>
+              <!-- Notifications: style can be found in dropdown.less -->
+              <li class="dropdown notifications-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bell-o"></i>
+                  <span class="label label-warning">1</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="header">你有1条提醒</li>
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-users text-aqua"></i> 今天新增5台主机
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="footer"><a href="#">查看所有</a></li>
+                </ul>
+              </li>
+              <!-- Tasks: style can be found in dropdown.less -->
+              <li class="dropdown tasks-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-flag-o"></i>
+                  <span class="label label-danger">4</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="header">你有4个任务</li>
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                      <li><!-- Task item -->
+                        <a href="#">
+                          <h3>
+                            Design some buttons
+                            <small class="pull-right">20%</small>
+                          </h3>
+                          <div class="progress xs">
+                            <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                              <span class="sr-only">20% Complete</span>
+                            </div>
+                          </div>
+                        </a>
+                      </li><!-- end task item -->
+                      <li><!-- Task item -->
+                        <a href="#">
+                          <h3>
+                            Create a nice theme
+                            <small class="pull-right">40%</small>
+                          </h3>
+                          <div class="progress xs">
+                            <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                              <span class="sr-only">40% Complete</span>
+                            </div>
+                          </div>
+                        </a>
+                      </li><!-- end task item -->
+                      <li><!-- Task item -->
+                        <a href="#">
+                          <h3>
+                            Some task I need to do
+                            <small class="pull-right">60%</small>
+                          </h3>
+                          <div class="progress xs">
+                            <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                              <span class="sr-only">60% Complete</span>
+                            </div>
+                          </div>
+                        </a>
+                      </li><!-- end task item -->
+                      <li><!-- Task item -->
+                        <a href="#">
+                          <h3>
+                            Make beautiful transitions
+                            <small class="pull-right">80%</small>
+                          </h3>
+                          <div class="progress xs">
+                            <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                              <span class="sr-only">80% Complete</span>
+                            </div>
+                          </div>
+                        </a>
+                      </li><!-- end task item -->
+                    </ul>
+                  </li>
+                  <li class="footer">
+                    <a href="#">查看所有任务</a>
+                  </li>
+                </ul>
+              </li>
+              <!-- User Account: style can be found in dropdown.less -->
+              <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="glyphicon glyphicon-user"></i>
+                  <span class="hidden-xs">管理员</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                    <i class="glyphicon glyphicon-user"></i>
+                    <p>
+                      <small>管理员</small>
+                    </p>
+                  </li>
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="/personal" class="btn btn-default btn-flat">档案</a>
+                    </div>
+                    <div class="pull-right">
+                      <a href="/logout" class="btn btn-default btn-flat">退出</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <!-- Control Sidebar Toggle Button -->
+            </ul>
+          </div>
+{% endblock%}
+        </nav>
+      </header>
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <div class="sidebar" id="scrollspy">
+
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="nav sidebar-menu">
+            <li class="header">目录</li>
+            <li class="active"><a href="#introduction"><i class="fa fa-circle-o"></i> 简介</a></li>
+            <li><a href="#download"><i class="fa fa-circle-o"></i> 下载</a></li>
+            <li><a href="#dependencies"><i class="fa fa-circle-o"></i> 依赖</a></li>
+            <li><a href="#advice"><i class="fa fa-circle-o"></i> 建议</a></li>
+            <li class="treeview" id="scrollspy-components">
+              <a href="javascript::;"><i class="fa fa-circle-o"></i> 功能</a>
+              <ul class="nav treeview-menu">
+                <li><a href="#component-main-header">控制台</a></li>
+                <li><a href="#component-sidebar">侧边栏</a></li>
+                <li><a href="#component-control-sidebar">控制栏</a></li>
+                <li><a href="#component-info-box">信息框</a></li>
+                <li><a href="#component-box">Boxes</a></li>
+                <li><a href="#component-direct-chat">Direct Chat</a></li>
+              </ul>
+            </li>
+            <li><a href="#plugins"><i class="fa fa-circle-o"></i> 插件</a></li>
+            <li><a href="#browsers"><i class="fa fa-circle-o"></i> 浏览器支持</a></li>
+            <li><a href="#implementations"><i class="fa fa-circle-o"></i> 未来计划</a></li>
+            <li><a href="#faq"><i class="fa fa-circle-o"></i> FAQ</a></li>
+            <li><a href="#license"><i class="fa fa-circle-o"></i> 版权</a></li>
+            <li><a href="/"><i class="fa fa-circle-o"></i> 返回控制台</a></li>
+          </ul>
+        </div>
+        <!-- /.sidebar -->
+      </aside>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <h1>
+            OMC智能统一运维操作平台
+            <small>版本 0.1</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
+            <li class="active">知识库</li>
+          </ol>
+        </div>
+
+        <!-- Main content -->
+        <div class="content body">
+
+<section id="introduction">
+  <h2 class="page-header"><a href="#introduction">简介</a></h2>
+  <p class="lead">
+    <b>OMC</b> 运维平台是针对解决现有IT运维过程中所面临的挑战及所需要克服的矛盾
+    （客户满意度、成本控制与系统安全之间的挑战；IT系统日益增长的复杂度与运维人
+    员数量和知识度之间的矛盾）而设计的统一运维操作平台，拥有完全自主知识产权.
+    <br>
+    https://www.almsaeedstudio.com/themes/AdminLTE/index2.html
+  </p>
+</section><!-- /#introduction -->
+
+
+<!-- ============================================================= -->
+
+<section id="download">
+  <h2 class="page-header"><a href="#download">下载</a></h2>
+  <p class="lead">
+    
+  </p>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">源代码</h3>
+          <span class="label label-primary pull-right"><i class="fa fa-html5"></i></span>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <p>完整源代码下载.</p>
+          <a href="https://vfs-gce-ae-85-1.c9.io/vfs/2153113/9cH1OdVc27hoTf07/workspace/?download=ftasomc.tar.gz" class="btn btn-primary"><i class="fa fa-download"></i> Download</a>
+        </div><!-- /.box-body -->
+      </div><!-- /.box -->
+    </div><!-- /.col -->
+    
+  </div><!-- /.row -->
+  <pre class="hierarchy bring-up"><code class="language-bash" data-lang="bash">文件结构
+
+ftasomc/
+├── ansibleweb/  批量操作
+├── asset/       资产管理
+├── backend/     配置文件
+├── cobblerweb/  批量部署
+├── ftasomc/     项目文件
+├── logs/        日志管理
+├── monitor/     监控管理
+├── ops/         操作管理
+├── shellinabox/ shell工具
+├── static/      静态文件
+</code></pre>
+</section>
+
+
+<!-- ============================================================= -->
+
+<section id="dependencies">
+  <h2 class="page-header"><a href="#dependencies">依赖</a></h2>
+  <p class="lead">OMC依赖于Python和Django.
+    源代码已经包含全部文件，无需另外下载.</p>
+  <ul class="bring-up">
+    <li><a href="http://www.python.org/" target="_blank">Python</a></li>
+    <li><a href="http://www.djangoproject.com/" target="_blank">Django</a></li>
+    <li><a href="http://getbootstrap.com" target="_blank">Bootstrap 3</a></li>
+    <li><a href="http://jquery.com/" target="_blank">jQuery</a></li>
+    <li><a href="#plugins">其他插件</a></li>
+  </ul>
+</section>
+
+
+<!-- ============================================================= -->
+
+<section id="advice">
+  <h2 class="page-header"><a href="#advice">建议</a></h2>
+  <p class="lead">
+    在您开始使用OMC平台之前:
+  </p>
+
+  <ul>
+    <li><b>OMC模板基于<a href="http://getbootstrap.com/" target="_blank">Bootstrap 3</a>.</b></li>
+    <li><b>批量操作由<a href="https://www.ansible.com/" target="_blank">Ansible</a></b>支持,未来会根据稳定性需求添加SaltStack模块.</li>
+    <li><b>日志管理基于<a href="https://www.elastic.co/" target="_blank">ELK</a></b>.</li>
+    <li><b>监控管理基于<a href="http://www.zabbix.com/" target="_blank">Zabbix</a></b>.</li>
+  </ul>
+  <p>
+    <b>注意:</b> OMC平台是基于模块概念构建，可以根据需求自由增减.
+  </p>
+</section>
+
+
+<!-- ============================================================= -->
+
+<section id="components" data-spy="scroll" data-target="#scrollspy-components">
+  <h2 class="page-header"><a href="#components">功能</a></h2>
+  <ul class="bring-up">
+    <li><a href="#component-main-header">控制台</a></li>
+    <li><a href="#component-sidebar">侧边栏</a></li>
+    <li><a href="#component-control-sidebar">控制栏</a></li>
+    <li><a href="#component-info-box">信息框</a></li>
+  </ul>
+</section>
+
+
+<!-- ============================================================= -->
+
+<section id="plugins">
+  <h2 class="page-header"><a href="#plugins">插件</a></h2>
+  <p class="lead">OMC使用了以下插件，如需了解，请访问其官方网站.</p>
+  <div class="row bring-up">
+    <div class="col-sm-3">
+      <ul class="list-unstyled">
+        <li><h4>图表</h4></li>
+        <li><a href="http://www.chartjs.org/" target="_blank">ChartJS</a></li>
+        <li><a href="http://www.flotcharts.org/" target="_blank">Flot</a></li>
+        <li><a href="http://morrisjs.github.io/morris.js/" target="_blank">Morris.js</a></li>
+        <li><a href="http://omnipotent.net/jquery.sparkline/" target="_blank">Sparkline</a></li>
+      </ul>
+    </div><!-- /.col -->
+    <div class="col-sm-3">
+      <ul class="list-unstyled">
+        <li><h4>窗格</h4></li>
+        <li><a href="https://github.com/seiyria/bootstrap-slider/">Bootstrap Slider</a></li>
+        <li><a href="http://ionden.com/a/plugins/ion.rangeSlider/en.html" target="_blank">Ion Slider</a></li>
+        <li><a href="http://bootstrap-datepicker.readthedocs.org/" target="_blank">Date Picker</a></li>
+        <li><a href="http://www.daterangepicker.com/" target="_blank">Date Range Picker</a></li>
+        <li><a href="http://mjolnic.com/bootstrap-colorpicker/" target="_blank">Color Picker</a></li>
+        <li><a href="https://github.com/jdewit/bootstrap-timepicker/" target="_blank">Time Picker</a></li>
+        <li><a href="http://fronteed.com/iCheck/" target="_blank">iCheck</a></li>
+        <li><a href="https://github.com/RobinHerbots/jquery.inputmask/" target="_blank">Input Mask</a></li>
+      </ul>
+    </div><!-- /.col -->
+    <div class="col-sm-3">
+      <ul class="list-unstyled">
+        <li><h4>编辑器</h4></li>
+        <li><a href="https://github.com/bootstrap-wysiwyg/bootstrap3-wysiwyg/" target="_blank">Bootstrap WYSIHTML5</a></li>
+        <li><a href="http://ckeditor.com/" target="_blank">CK Editor</a></li>
+      </ul>
+    </div><!-- /. col -->
+    <div class="col-sm-3">
+      <ul class="list-unstyled">
+        <li><h4>其他</h4></li>
+        <li><a href="https://datatables.net/examples/styling/bootstrap.html" target="_blank">DataTables</a></li>
+        <li><a href="http://fullcalendar.io/" target="_blank">Full Calendar</a></li>
+        <li><a href="http://jqueryui.com/" target="_blank">jQuery UI</a></li>
+        <li><a href="http://anthonyterrien.com/knob/" target="_blank">jQuery Knob</a></li>
+        <li><a href="http://jvectormap.com/" target="_blank">jVector Map</a></li>
+        <li><a href="http://rocha.la/jQuery-slimScroll/" target="_blank">Slim Scroll</a></li>
+        <li><a href="http://github.hubspot.com/pace/docs/welcome/" target="_blank">Pace</a></li>
+      </ul>
+    </div><!-- /.col -->
+  </div><!-- /.row -->
+</section>
+
+
+<!-- ============================================================= -->
+
+<section id="browsers">
+  <h2 class="page-header"><a href="#browsers">支持的浏览器</a></h2>
+  <p class="lead">OMC支持以下浏览器:</p>
+  <ul>
+    <li>IE 9以上</li>
+    <li>Firefox (最新版)</li>
+    <li>Safari (最新版)</li>
+    <li>Chrome (最新版)</li>
+  </ul>
+</section>
+
+
+<!-- ============================================================= -->
+
+
+<!-- ============================================================= -->
+
+<section id="implementations">
+  <h2 class="page-header"><a href="#implementations">未来计划</a></h2>
+  <p class="lead">Thanks to many of AdminLTE users, there are multiple implementations of the template
+  for easy integration with back-end frameworks. The following are some of them:</p>
+
+  <ul>
+    <li><a href="https://github.com/mmdsharifi/AdminLTE-RTL">Persian RTL</a> by <a href="https://github.com/mmdsharifi">Mohammad Sharifi</a></li>
+    <li><a href="https://github.com/dmstr/yii2-adminlte-asset" target="_blank">Yii 2</a> by <a href="https://github.com/schmunk42" target="_blank">Tobias Munk</a></li>
+    <li><a href="https://github.com/yajra/laravel-admin-template" target="_blank">Laravel</a> by <a href="https://github.com/yajra" target="_blank">Arjay Angeles</a></li>
+    <li><a href="https://github.com/avanzu/AdminThemeBundle" target="_blank">Symfony</a> by <a href="https://github.com/avanzu" target="_blank">Marc Bach</a></li>
+    <li>Rails gems: <a href="https://github.com/nicolas-besnard/adminlte2-rails" target="_blank">adminlte2-rails</a> by <a href="https://github.com/nicolas-besnard" target="_blank">Nicolas Besnard</a> and <a href="https://github.com/racketlogger/lte-rails" target="_blank">lte-rails</a> (using AdminLTE sources) by <a href="https://github.com/racketlogger" target="_blank">Carlos at RacketLogger</a></li>
+  </ul>
+
+  <p><b class="text-red">Note:</b> these implementations are not supported by Almsaeed Studio. However,
+    they do provide a good example of how to integrate AdminLTE into different frameworks. For the latest release
+    of AdminLTE, please visit our <a href="https://github.com/almasaeed2010/AdminLTE">repository</a> or <a href="https://almsaeedstudio.com">website</a></p>
+</section>
+
+
+<!-- ============================================================= -->
+
+<section id="faq">
+  <h2 class="page-header"><a href="#faq">FAQ</a></h2>
+  <h3>OMC解决了什么问题?</h3>
+  <p class="lead">OMC运维平台意在解放运维劳动力.</p>
+
+</section>
+
+
+<!-- ============================================================= -->
+
+<section id="license">
+  <h2 class="page-header"><a href="#license">版权</a></h2>
+  <h3>OMC运维平台</h3>
+  <p class="lead">
+    OMC运维平台所有权归FTAS公司所有.
+  </p>
+</section>
+
+
+        </div><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Version</b> 1.0
+        </div>
+        <strong>Copyright &copy; 2014-2015 <a href="http://www.ftas.cn">FTAS</a>.</strong> All rights reserved.
+      </footer>
+
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <div class="pad">
+          This is an example of the control sidebar.
+        </div>
+      </aside><!-- /.control-sidebar -->
+      <!-- Add the sidebar's background. This div must be placed
+           immediately after the control sidebar -->
+      <div class="control-sidebar-bg"></div>
+
+    </div><!-- ./wrapper -->
+
+
+{% block js %}
+<!-- jQuery 2.1.4 -->
+    <script src="/static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="/static/plugins/fastclick/fastclick.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/static/dist/js/app.min.js"></script>
+    <!-- SlimScroll 1.3.0 -->
+    <script src="/static/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    
+    <script src="/static/dist/js/docs.js"></script>
+{% endblock %}
+{% endblock %}
+</html>

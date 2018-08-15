@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+{% extends "ansible.html" %}
+{% block title %}
+<title>Ansible操作日志</title>
+{% endblock %}
+{% block pageheader %}
+ <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Ansible操作日志
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
+            <li class="active">Ansible操作日志</li>
+          </ol>
+        </section>
+{% endblock%}
+{% block ansiblebody %}
+<div class="container theme-showcase" role="main">
+    <div class="row">
+        <div class="col-md-11">
+             <div class="panel panel-default">
+                  <div class="panel-body">
+                         
+					<br/>
+					<br>
+					<div style="height:450px">
+					<pre style="height:400px">{{ output  }}</pre>
+					</div>
+				  </div>
+             </div>
+        </div>
+   </div>
+   <!--row end-->
+</div> <!-- /container -->
+{% endblock %}
+</html>

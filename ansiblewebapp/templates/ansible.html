@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ansible Web 管理系统</title>
+    <meta name="description" content="跳羚科技 - Ansible Web 管理系统">
+    <meta name="keywords" content="ansible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="/static/assets/i/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="/static/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <script src="/static/assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="/static/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="/static/assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="/static/assets/css/app.css">
+    <script src="/static/assets/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="/static/assets/css/amazeui.chosen.css"/>
+    <script src="/static/assets/js/amazeui.chosen.min.js"></script>
+</head>
+
+<body data-type="ansible">
+    <script src="/static/assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+        <!-- 头部 -->
+        <header>
+            <!-- logo -->
+            <div class="am-fl tpl-header-logo">
+                <a href="/"><img src="/static/assets/img/logo.png" alt=""></a>
+            </div>
+            <!-- 右侧内容 -->
+            <div class="tpl-header-fluid">
+                <!-- 侧边切换 -->
+                <div class="am-fl tpl-header-switch-button am-icon-list"></div>
+                <!-- 小标题 -->
+                <div class=" tpl-header-title am-fl am-vertical-align" style="height: 50px;">
+                	<div class="am-vertical-align-middle am-text-success">
+                		Ansible Web 管理系统
+                	</div>
+            	</div>
+                <!-- 其它功能-->
+                <div class="am-fr tpl-header-navbar">
+                    <ul>
+                        <!-- 欢迎语 -->
+                        <li class="am-text-sm tpl-header-navbar-welcome am-dropdown" data-am-dropdown>
+                            <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                            	<span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+                            </a>
+                        	<!-- 弹出列表 -->
+                            <ul class="am-dropdown-content tpl-dropdown-content">
+                                <li class="tpl-dropdown-menu-notifications">
+                                    <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                        <div class="tpl-dropdown-menu-notifications-title">
+                                            <i class="am-icon-user"></i>
+                                            <span style="margin-left:10px;">个人资料</span>
+                                        </div>
+                                        <div class="tpl-dropdown-menu-notifications-time">
+                                            <span class="am-badge am-round am-fr" style="background-color:#99CCCC;">User</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="tpl-dropdown-menu-notifications">
+                                    <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                        <div class="tpl-dropdown-menu-notifications-title">
+                                            <i class="am-icon-cog"></i>
+                                            <span style="margin-left:10px;">系统设置</span>
+                                        </div>
+                                        <div class="tpl-dropdown-menu-notifications-time">
+                                            <span class="am-badge am-round am-fr" style="background-color:#CC9999;">Setting</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="tpl-dropdown-menu-notifications">
+                                    <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                        <i class="am-icon-power-off"></i> 退出
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="am-hide-sm-only">
+                        	<a href="javascript:;" id="admin-fullscreen">
+                        		<span class="am-icon-arrows-alt"></span>
+                        		<span class="admin-fullText">开启全屏</span>
+                        	</a>
+                        </li>
+                        <!-- 退出 -->
+                        <li class="am-text-sm">
+                            <a href="javascript:;">
+                                <span class="am-icon-sign-out"></span> 退出
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </header>
+        <!-- 风格切换 -->
+        <div class="tpl-skiner">
+            <div class="tpl-skiner-toggle am-icon-cog">
+            </div>
+            <div class="tpl-skiner-content">
+                <div class="tpl-skiner-content-title">
+                    选择主题
+                </div>
+                <div class="tpl-skiner-content-bar">
+                    <span class="skiner-color skiner-white" data-color="theme-white"></span>
+                    <span class="skiner-color skiner-black" data-color="theme-black"></span>
+                </div>
+            </div>
+        </div>
+        <!-- 侧边导航栏 -->
+        <div class="left-sidebar">
+            <!-- 用户信息 -->
+            <div class="tpl-sidebar-user-panel">
+                <div class="tpl-user-panel-slide-toggleable">
+                    <div class="tpl-user-panel-profile-picture">
+                        <img src="/static/assets/img/user03.png" alt="">
+                    </div>
+                    <span class="user-panel-logged-in-text">
+                        <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>Gocjy
+                    </span>
+                </div>
+            </div>
+
+            <!-- 菜单 -->
+            <ul class="sidebar-nav">
+                <li class="sidebar-nav-link">
+                    <a href="/">
+                        <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-adn sidebar-nav-link-logo"></i> Ansible
+                        <span class="am-icon-chevron-up am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub" style="display: block;">
+                        <li class="sidebar-nav-link">
+                            <a href="/ansible/" class="sub-active active">
+                                <span class="am-icon-adn sidebar-nav-link-logo"></span> Ansible
+                            </a>
+                        </li>
+                        <li class="sidebar-nav-link">
+                            <a href="/playbook/">
+                                <span class="am-icon-book sidebar-nav-link-logo"></span> Playbook
+                            </a>
+                        </li>
+                        <li class="sidebar-nav-link">
+                            <a href="/hosts/">
+                                <span class="am-icon-database sidebar-nav-link-logo"></span> Hosts
+                            </a>
+                        </li>
+                        <li class="sidebar-nav-link">
+                            <a href="/files/">
+                                <span class="am-icon-file sidebar-nav-link-logo"></span> Files
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-cogs sidebar-nav-link-logo"></i> 部署管理
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                            <a href="/inventory/">
+                                <span class="am-icon-server sidebar-nav-link-logo"></span> 主机列表
+                            </a>
+                        </li>
+                        <li class="sidebar-nav-link">
+                            <a href="/group/">
+                                <span class="am-icon-sitemap sidebar-nav-link-logo"></span> 主机组列表
+                            </a>
+                        </li>
+                        <li class="sidebar-nav-link">
+                            <a href="/deploy/">
+                                <span class="am-icon-cubes sidebar-nav-link-logo"></span> 部署发布
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-users sidebar-nav-link-logo"></i> 用户管理
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                            <a href="/user/">
+                                <span class="am-icon-book sidebar-nav-link-logo"></span> 用户列表
+                            </a>
+                        </li>
+                        <li class="sidebar-nav-link">
+                            <a href="/user/new/">
+                                <span class="am-icon-plus sidebar-nav-link-logo"></span> 添加用户
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="/log/">
+                        <i class="am-icon-calendar sidebar-nav-link-logo"></i> 系统日志
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="/help/">
+                        <i class="am-icon-puzzle-piece sidebar-nav-link-logo"></i> 帮助
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="/logout/">
+                        <i class="am-icon-sign-out sidebar-nav-link-logo"></i> 注销
+
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+
+            <div class="container-fluid am-cf">
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                        <div class="page-header-heading">
+                        	<span class="am-icon-adn page-header-heading-icon"></span>
+                            Ansible <small style="color:#FF9900">/ 命令执行</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+			<div class="row-content am-cf">
+
+                <div class="widget">
+                    <div class="widget-head am-cf">
+                        <div class="widget-title am-fl"><span class="am-icon-play"></span> Ansible命令执行</div>
+                    </div>
+                    <div class="widget widget-body">
+                        <div id="tab-pages" class="am-tabs" data-am-tabs="{noSwipe: 1}">
+                            <ul class="am-tabs-nav am-nav am-nav-tabs">
+                                <li class="am-active"><a href="#cmd-manual">手动</a></li>
+                                <li><a href="#cmd-automatic">自动</a></li>
+                            </ul>
+                            <div class="am-tabs-bd am-tabs-bd-ofv">
+                                <div class="am-tab-panel am-active" id="cmd-manual">
+                                    <div class="row am-cf">
+                                        <div class="am-u-sm-12">
+                                            <div class="widget am-cf" style="border: 1px solid rgba(94,185,94,.35); ">
+                                                <div class="widget-head am-cf" style="color: #5eb95e;background-color: rgba(94,185,94,.35);">
+                                                    <div class="widget-title am-fl"><span class="am-icon-mouse-pointer"></span> 项目选择</div>
+                                                </div>
+                                                <div class="widget-body am-cf">
+                                                    <p>说明：分为手动和自动，视具体情况，二选一即可！
+                                                            主机组可填主机组名,也可填写IP地址,同Ansible用法.
+                                                    </p>
+                                                    <div style="height: 1px;margin:15px 0px;border-top: 1px solid rgba(94,185,94,.35);"></div>
+                                                    <div class="am-form tpl-form-border-form" style="padding: 0px;">
+                                                        <table width="100%" class="am-table am-table-compact am-table-bordered tpl-table-black" style="margin-bottom: 0px;">
+                                                            <thead class="am-text-center">
+                                                                <th class="am-text-center">主机组</th>
+                                                                <th class="am-text-center">模块名</th>
+                                                                <th class="am-text-center">参数项</th>
+                                                                <th class="am-text-center">操作项</th>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="20%"><input id="input-grp" type="text" class="am-form-field"/></td>
+                                                                    <td width="30%"><input id="input-mod" type="text" class="am-form-field"/></td>
+                                                                    <td width="30%"><input id="input-arg" type="text" class="am-form-field"/></td>
+                                                                    <td width="20%" class="am-text-center">
+                                                                        <button id="ansible-cmd-confirm" class="am-btn am-btn-success">确定</button>
+                                                                        <button id="ansible-cmd-clear" class="am-btn am-btn-danger">清空</button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row am-cf">
+                                        <div class="am-u-sm-12">
+                                            <div class="widget am-cf" style="border: 1px solid rgba(59,180,242,.35);">
+                                                <div class="widget-head am-cf" style="color: #14a6ef;background-color: rgba(59,180,242,.35);">
+                                                    <div class="widget-title am-fl"><span class="am-icon-tasks"></span> 命令预览</div>
+                                                </div>
+                                                <div class="widget-body am-cf">
+                                                    <div class="am-cf">
+                                                        <span>说明：这里是即将执行的具体命令！</span>
+                                                        <span class="am-fr">
+                                                            <button id="mission-start" class="am-btn am-btn-success">确定执行</button>
+                                                            <button id="reset-table" class="am-btn am-btn-danger">重置</button>
+                                                        </span>
+                                                    </div>
+                                                    <div style="height: 1px;margin:15px 0px;border-top: 1px solid rgba(59,180,242,.35);"></div>
+                                                    <div id="mission-content">没有任务</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row am-cf">
+                                        <div class="am-u-sm-12">
+                                            <div class="widget am-cf" style="border: 1px solid rgba(243,123,29,.35);">
+                                                <div class="widget-head am-cf" style="color: #F37B1D;background-color: rgba(243,123,29,.35);">
+                                                    <div class="widget-title am-fl"><span class="am-icon-commenting"></span> 日志输出</div>
+                                                </div>
+                                                <div class="widget-body">
+                                                    <div class="am-cf">
+                                                        <span>说明：这里显示任务的实时日志！</span>
+                                                        <span class="am-fr">
+                                                            <button id="reset-log" class="am-btn am-btn-danger">清空</button>
+                                                        </span>
+                                                    </div>
+                                                    <div style="height: 1px;margin:15px 0px;border-top: 1px solid rgba(243,123,29,.35);"></div>
+                                                    <div id="log-content">没有实时日志</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="am-tab-panel" id="cmd-automatic">
+                                    <div class="row am-cf">
+                                        <div class="am-u-sm-12">
+                                            <div class="widget am-cf" style="border: 1px solid rgba(94,185,94,.35); ">
+                                                <div class="widget-head am-cf" style="color: #5eb95e;background-color: rgba(94,185,94,.35);">
+                                                    <div class="widget-title am-fl"><span class="am-icon-mouse-pointer"></span> 项目选择</div>
+                                                </div>
+                                                <div class="widget-body am-cf">
+                                                    <p>说明：分为手动和自动，视具体情况，二选一即可！
+                                                            主机组可填主机组名,也可填写IP地址,同Ansible用法.
+                                                    </p>
+                                                    <div style="height: 1px;margin:15px 0px;border-top: 1px solid rgba(94,185,94,.35);"></div>
+                                                    <div class="am-form tpl-form-border-form" style="padding: 0px;">
+                                                        <span class="am-text-primary am-fl">脚本:
+                                                            <select id="select-script" data-placeholder="点击选择"
+                                                                    class="chosen-select"></select>
+                                                        </span>
+                                                        <span class="am-text-primary am-margin-left-sm">主机:
+                                                            <select id="select-host" data-am-selected="{searchBox: 1,maxHeight: 200}" multiple
+                                                                     style="display: inline-block;width: 60%"></select>
+                                                        </span>
+                                                        <span class="am-fr">
+                                                            <button id="mission-start-auto" class="am-btn am-btn-success">执行</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row am-cf">
+                                        <div class="am-u-sm-12">
+                                            <div class="widget am-cf" style="border: 1px solid rgba(243,123,29,.35);">
+                                                <div class="widget-head am-cf" style="color: #F37B1D;background-color: rgba(243,123,29,.35);">
+                                                    <div class="widget-title am-fl"><span class="am-icon-commenting"></span> 日志输出</div>
+                                                </div>
+                                                <div class="widget-body">
+                                                    <div class="am-cf">
+                                                        <span>说明：这里显示任务的实时日志！</span>
+                                                        <span class="am-fr">
+                                                            <button id="reset-log-auto" class="am-btn am-btn-danger">清空</button>
+                                                        </span>
+                                                    </div>
+                                                    <div style="height: 1px;margin:15px 0px;border-top: 1px solid rgba(243,123,29,.35);"></div>
+                                                    <div id="log-content-auto">没有实时日志</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="am-modal am-modal-alert" tabindex="-1" id="alertbox">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">提示</div>
+                <div class="am-modal-bd"></div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+                </div>
+        </div>
+    </div>
+    <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="progress-box">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd am-text-warning"><span class="am-icon-warning"></span> <span id="modal-hd-text">正在执命令，请稍候...</span></div>
+            <div class="am-modal-bd">
+              <span class="am-icon-spinner am-icon-spin"></span>
+            </div>
+        </div>
+    </div>
+    <div class="am-modal am-modal-alert" tabindex="-1" id="progress-box-success">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd am-text-secondary">提示</div>
+            <div class="am-modal-bd am-text-success">
+                <span class="am-icon-check"></span>
+                执行完毕！
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            </div>
+        </div>
+    </div>
+    <script src="/static/assets/js/amazeui.min.js"></script>
+    <script src="/static/assets/js/amazeui.datatables.min.js"></script>
+    <script src="/static/assets/js/dataTables.responsive.min.js"></script>
+    <script src="/static/assets/js/app.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function (){
+            // 定义一个进度条
+            var progress = $.AMUI.progress;
+            function alertBox(msg){
+                $("#alertbox .am-modal-bd").text(msg);
+                $('#alertbox').modal({
+                    relatedTarget: this,
+                    onConfirm: function() {}
+                });
+            }
+            $('#ansible-cmd-confirm').click(function (){
+                var grp = $('#input-grp').val();
+                var mod = $('#input-mod').val();
+                var arg = $('#input-arg').val();
+                $.ajax({
+                    type:"post",
+                    url:'/ansible/comb/',
+                    data: 'grp='+grp+'&mod='+mod+'&arg='+arg,
+                    dataType: 'json',
+                    success:function(data){
+                        $('#input-grp').val('');
+                        $('#input-mod').val('');
+                        $('#input-arg').val('');
+                        $('#mission-content').text(data);
+                    }
+                });
+            });
+            $('#ansible-cmd-clear').click(function (){
+                $('#input-grp').val('');
+                $('#input-mod').val('');
+                $('#input-arg').val('');
+            });
+            $('#reset-table').click(function (){
+                $('#mission-content').text("没有任务");
+            });
+            $('#reset-log').click(function (){
+                $('#log-content').html('没有任务');
+            });
+            $('#tab-pages').find('a').on('opened.tabs.amui', function(e) {
+                $('#mission-content').text("没有任务");
+                $('#log-content').html('没有任务');
+            });
+            // 确定执行按钮事件
+            $('#mission-start').click(function () {
+                var txt = $('#mission-content').html();
+                if (txt == "没有任务" || txt == "") {
+                    alertBox("没有任务！");
+                }else {
+                    // 进度条开启
+                    progress.start();
+                    $("#modal-hd-text").html("正在执命令，请稍候...");
+                    $('#progress-box').modal();
+                    // 将日志框内容清空
+                    var log = $('#log-content');
+                    log.html('');
+                    $('html, body').animate({scrollTop: $(document).height()},'fast');
+                    var cmd = $('#mission-content').text();
+                    $.ajax({
+                        type:"post",
+                        url:'/ansible/run/',
+                        data: 'cmd='+cmd,
+                        success:function(data){
+                            var log_line =
+                                        "<textarea name=\"textarea\"" +
+                                              " id=\"log-show\" "+
+                                              " readonly " +
+                                              " style='overflow-y: hidden;height:20px;width:100%;outline: none;resize: none;border:0px;' >" + data +
+                                        "</textarea>";
+                            $('#log-content').append(log_line);
+                            $("#log-show").height($("#log-show")[0].scrollHeight + 'px');
+                            $('#progress-box').modal('close');
+                            $('#progress-box-success').modal({
+                                relatedTarget: this,
+                                onConfirm: function () {}
+                            });
+                            $('html, body').animate({scrollTop: $(document).height()},'fast');
+                        }
+                    });
+                    progress.done();
+                }
+            });
+            $('#mission-start-auto').click(function (){
+                var script_id = $("#select-script").val();
+                var script_name = $("#select-script").find("option:selected").text();
+                var host_ip = $("#select-host").val();
+                if (script_id==""||script_id==null||host_ip==""||host_ip==null){
+                    alertBox("脚本和主机不能为空!");
+                }else {
+                    var ip_list = (host_ip+"").split(',');
+                    // 进度条开启
+                    progress.start();
+                    $('#progress-box').modal();
+                    // 将日志框内容清空
+                    var log = $('#log-content-auto');
+                    log.html('');
+                    //递归执行ajax请求
+                    var currentIndex = 0;
+                    console.log("currentIndex:"+currentIndex);
+                    function startMission(){
+                        $("#modal-hd-text").html("正在["+script_name+"]主机<span class='am-text-primary'>"+ip_list[currentIndex]+"</span>，请稍候...");
+                        if(currentIndex >= ip_list.length){
+                            $('#progress-box').modal('close');
+                            $('#progress-box-success').modal({
+                                relatedTarget: this,
+                                onConfirm: function () {}
+                            });
+                            return;
+                        }
+                        $.ajax({
+                            type:'post',
+                            url:'/script/start/',
+                            data: 'id='+script_id+'&ip='+ip_list[currentIndex],
+                            success:function(data){
+                                var title = "<div style=\"color:#CC9999;\">主机[<span style=\"color: #CC6699;\"> "+ip_list[currentIndex]+" </span>]"+script_name+":</div>";
+                                currentIndex++;
+                                $('#log-content-auto').append(title);
+                                var code = "<pre id=code-"+currentIndex+" class=\"am-pre-scrollable\">"+data+"</pre>";
+                                $('#log-content-auto').append(code);
+                                var log_node = $("#code-"+currentIndex);
+                                var text = log_node.html();
+                                //高亮中括号内标题内容
+                                var s1 = text.replace(new RegExp("\\[\\B(.| )+?\\B\\]","igm"),
+                                        function($1){return "[<span style=\"color: #3399CC;\">"+$1.substring(1,$1.length-1)+"</span>]"});
+                                log_node.html(s1);
+                                text = log_node.html();
+                                //更改所有的No hosts matched错误颜色
+                                var reg = new RegExp("No hosts matched","g");
+                                var s2 = text.replace(reg,"<span style=\"color:#FF6666\">No hosts matched</span>");
+                                log_node.html(s2);
+                                text = log_node.html();
+                                //将所有的IP地址高亮
+                                var s3 = text.replace(new RegExp("\\d+\\.\\d+\\.\\d+\\.\\d+","igm"), function($1){return "<span style=\"color: #CC6699;font-weight:bold;\">"+$1+"</span>"});
+                                log_node.html(s3);
+                                text = log_node.html();
+                                //更改所有的ok颜色
+                                var s4 = text.replace(new RegExp("\\[\\bok\\b\\]","igm"),function($1){return "[<span class=\"am-text-success\">"+$1.substring(1,$1.length-1)+"</span>]"});
+                                log_node.html(s4);
+                                var count_ok = 0;
+                                if (text.match(new RegExp("\\[\\bok\\b\\]","igm"))){
+                                    count_ok = text.match(new RegExp("\\[\\bok\\b\\]","igm")).length;
+                                }else {
+                                    count_ok=0;
+                                }
+                                text = log_node.html();
+                                //更改所有的warn颜色
+                                var s5 = text.replace(new RegExp("\\[\\bwarn\\b\\]","igm"),function($1){return "[<span class=\"am-text-warning\">"+$1.substring(1,$1.length-1)+"</span>]"});
+                                log_node.html(s5);
+                                var count_warn = 0;
+                                if (text.match(new RegExp("\\[\\bwarn\\b\\]","igm"))){
+                                    count_warn = text.match(new RegExp("\\[\\bwarn\\b\\]","igm")).length;
+                                }else {
+                                    count_warn=0;
+                                }
+                                text = log_node.html();
+                                //更改所有的error颜色
+                                var s6 = text.replace(new RegExp("\\[\\berror\\b\\]","igm"),function($1){return "[<span class=\"am-text-danger\">"+$1.substring(1,$1.length-1)+"</span>]"});
+                                log_node.html(s6);
+                                var count_error = 0;
+                                if (text.match(new RegExp("\\[\\berror\\b\\]","igm"))){
+                                    count_error = text.match(new RegExp("\\[\\berror\\b\\]","igm")).length;
+                                }else {
+                                    count_error=0;
+                                }
+                                if (count_ok+count_warn+count_error != 0) {
+                                    var rst = "<div style=\"color:#333333\"><span style=\"color:#CC9999\">" +
+                                            "统计:</span> [<span class=\"am-text-success\" style=\"background-color:#eee\">ok</span>] "+count_ok+
+                                            ", [<span class=\"am-text-warning\" style=\"background-color:#eee\">warn</span>] "+count_warn+
+                                            ", [<span class=\"am-text-danger\" style=\"background-color:#eee\">error</span>] "+count_error+",</div><br>";
+                                    $('#log-content-auto').append(rst);
+                                }
+                                startMission();
+                                $('html, body').animate({scrollTop: $(document).height()},'fast');
+                            }
+                        });
+                    }
+                    startMission();
+                    progress.done();
+                }
+            });
+
+            $.ajax({
+                type:'post',
+                url:'/script/list/',
+                dataType: 'json',
+                success:function(data){
+                    var select = $("#select-script");
+                    select.chosen({width: '150px',display:'inline-block'});
+                    select.append("<option value=\"\"></option>");
+                    for (x in data) {
+                        var option = "<option value=\""+data[x].id+"\">"+data[x].name+"</option>";
+                        select.append(option);
+                    }
+                    select.trigger('chosen:updated');
+
+                    $.ajax({
+                        type:'post',
+                        url:'/serverList/',
+                        dataType: 'json',
+                        success:function(data){
+                            var select = $("#select-host");
+                            select.html("<option selected value=\"\"></option>");
+                            for (x in data) {
+                                var option = "<option value=\""+data[x].ip+"\">"+data[x].ip+"</option>";
+                                select.append(option);
+                            }
+                            select.trigger('chosen:updated');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

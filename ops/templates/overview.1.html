@@ -1,0 +1,1224 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Ansible overview</title>
+  <style type="text/css">
+    /* reset.css */
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed, 
+    figure, figcaption, footer, header, hgroup, 
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video { 
+      margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline;
+    }
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure, 
+    footer, header, hgroup, menu, nav, section { display: block; }
+    body { line-height: 1; }
+    ol, ul { list-style: none; }
+    blockquote, q { quotes: none; }
+    blockquote:before, blockquote:after,
+    q:before, q:after { content: ''; content: none; }
+    table { border-collapse: collapse; border-spacing: 0; }
+
+    /* ansible-cmdb */
+    *, body { font-family: sans-serif; font-weight: lighter; }
+    a { text-decoration: none; }
+
+    header { position: fixed; top: 0px; left: 0px; right: 0px; background-color: #0071b8; overflow: auto; color: #E0E0E0; padding: 15px; z-index: 1000; }
+    header h1 { font-size: x-large; float: left; line-height: 32px; font-weight: bold; }
+    header #generated { float: right; line-height: 32px; font-size: small; }
+    header #top { display: none; }
+    header #top a { line-height: 32px; margin-left: 64px; color: #FFFFFF; border-bottom: 1px solid #909090; }
+    header #generated .datetime { font-weight: bold; margin-left: 12px; }
+
+    footer { display: block; position: fixed; bottom: 0px; right: 0px; left: 0px; background-color: #d5d5d5; overflow: auto; color: #505050; padding: 4px; font-size: x-small; text-align: right; padding-right: 8px; }
+    footer a { font-weight: bold; text-decoration: none; color: #202020; }
+
+    #col_toggles { margin: 32px; margin-top: 100px; }
+    #col_toggles h2 { display: block; margin-bottom: 32px; color: #606060; }
+    #col_toggle_buttons { margin-left: 32px; font-weight: normal; line-height: 40px; }
+    #col_toggles a { line-height: 40px; }
+    #col_toggles a { display: inline-block; background-color: #009688; line-height: 32px; padding: 0px 15px 0px 15px; margin-right: 6px; font-size: small; box-shadow: 2px 2px 0px 0px rgba(0,0,0,0.35); color: #FFFFFF; }
+    #col_toggles a.col-invisible { background-color: #B0B0B0; box-shadow: 0 0px 0px 0; }
+
+    #host_overview { margin: 32px; }
+    #host_overview_tbl_wrapper{ margin-left: 16px; }
+    #host_overview table { width: 100%; clear: both; }
+    #host_overview tr { border-bottom: 1px solid #F0F0F0; }
+    #host_overview tr:hover { background-color: #F0F0F0; }
+    #host_overview thead th { text-align: left; color: #707070; font-size: x-small; font-weight: bold; cursor: pointer; background-repeat: no-repeat; background-position: center right; background-image: url("file:///usr/lib/ansible-cmdb/ansiblecmdb/data/static//images/sort_both.png"); }
+    #host_overview thead th.sorting_desc { background-image: url("file:///usr/lib/ansible-cmdb/ansiblecmdb/data/static//images/sort_desc.png"); }
+    #host_overview thead th.sorting_asc { background-image: url("file:///usr/lib/ansible-cmdb/ansiblecmdb/data/static//images/sort_asc.png"); }
+    #host_overview tbody td { color: #000000; font-size: small; padding: 8px 12px 8px 12px; }
+    #host_overview tbody a { text-decoration: none; color: #005c9d; }
+    #host_overview_tbl_filter { float: right; font-size: small; color: #808080; }
+    #host_overview_tbl_filter label input { margin-left: 12px; }
+    #host_overview_tbl_filter #filter_link a { color: #000000; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoUlEQVR4Xu2TIQ6EMBBF/+4dOUBFBYoboBHoBsuRUCgcnpDg3/Y7ICQVK3ebvPxJ30xH9QXom/PO/PoDAjSOY8pwIwFFr2EYUobjONj33bjGd3Ylr77v2bYNp7Hwhifs3HOeUdu2LMuCE1DXdedtl612cJ1R0zRM04TT1HVNjPERO/ecZxRCSBnmeWZdV+Ma39mVvABVVZUy3EhA0f//gvQB4y08WIiD/goAAAAASUVORK5CYII=) no-repeat left center; padding: 5px 0 5px 25px; }
+    #host_overview_tbl_info { font-size: x-small; margin-top: 16px; color: #C0C0C0; }
+    #host_overview .bar { clear: both; }
+    #host_overview .prog_bar_full { float: left; display: block; height: 12px; border: 1px solid #000000; padding: 1px; margin-right: 4px; color: white; text-align: center; }
+    #host_overview .prog_bar_used { display: block; height: 12px; background-color: #8F4040; }
+    #host_overview tbody td.error a { color: #FF0000; }
+    #host_overview span.usage_detail { font-size: x-small; color: #606060; }
+
+    #hosts { margin-left: 32px; margin-bottom: 120px; }
+    #hosts a { color: #000000; }
+    #hosts h3 { margin-top: 128px; padding-bottom: 16px; font-size: xx-large; border-bottom: 1px solid #D0D0D0; }
+    #hosts h4 { font-size: large; font-weight: bold; color: #404040; margin-top: 32px; margin-bottom: 32px; }
+    #hosts th { text-align: left; color: #909090; padding-bottom: 10px; }
+    #hosts td { padding-left: 16px; color: #303030; padding-bottom: 10px; }
+    #hosts ul { list-style: square; margin-left: 48px; }
+    #hosts table.net_overview td,th { text-align: left; padding: 0px 0px 8px 16px; margin: 0px; }
+    #hosts table.net_overview { margin: 16px 0px 16px 0px; }
+    #hosts .error { color: #FF0000; }
+  </style>
+  <!-- DataTables assets -->
+    <script src="/static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+  <!-- DataTables -->
+    <script src="/static/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/static/plugins/datatables/dataTables.bootstrap.min.js"></script>
+</head>
+<body>
+
+<header>
+  <h1>Host Overview</h1>
+  <span id="top"><a href="#">Back to top</a></span>
+  <span id="generated">Generated on <span class="datetime">Tue Mar  8 02:14:55 2016</span></span>
+</header>
+
+<div id="col_toggles">
+  <h2>Shown columns</h2>
+  <div id="col_toggle_buttons">
+      
+      <a href="" class="col-toggle col-visible" data-column="0">Name</a>
+      
+      <a href="" class="col-toggle col-invisible" data-column="1">Groups</a>
+      
+      <a href="" class="col-toggle col-invisible" data-column="2">DTAP</a>
+      
+      <a href="" class="col-toggle col-invisible" data-column="3">Comment</a>
+      
+      <a href="" class="col-toggle col-invisible" data-column="4">Ext ID</a>
+      
+      <a href="" class="col-toggle col-visible" data-column="5">FQDN</a>
+      
+      <a href="" class="col-toggle col-visible" data-column="6">Main IP</a>
+      
+      <a href="" class="col-toggle col-invisible" data-column="7">All IPv4</a>
+      
+      <a href="" class="col-toggle col-visible" data-column="8">OS</a>
+      
+      <a href="" class="col-toggle col-invisible" data-column="9">Kernel</a>
+      
+      <a href="" class="col-toggle col-invisible" data-column="10">Arch</a>
+      
+      <a href="" class="col-toggle col-visible" data-column="11">Virt</a>
+      
+      <a href="" class="col-toggle col-invisible" data-column="12">CPU type</a>
+      
+      <a href="" class="col-toggle col-visible" data-column="13">vCPUs</a>
+      
+      <a href="" class="col-toggle col-visible" data-column="14">RAM [GiB]</a>
+      
+      <a href="" class="col-toggle col-invisible" data-column="15">Mem Usage</a>
+      
+      <a href="" class="col-toggle col-invisible" data-column="16">Swap Usage</a>
+      
+      <a href="" class="col-toggle col-invisible" data-column="17">Disk usage</a>
+      
+      <a href="" class="col-toggle col-invisible" data-column="18">Timestamp</a>
+  </div>
+</div>
+
+<div id="host_overview">
+  <h2>Host overview</h2>
+  <div id="host_overview_tbl_wrapper">
+    <table id="host_overview_tbl" class="demo display dataTable compact">
+    <thead>
+      <tr>
+          <th>Name</th>
+          <th>Groups</th>
+          <th>DTAP</th>
+          <th>Comment</th>
+          <th>Ext ID</th>
+          <th>FQDN</th>
+          <th>Main IP</th>
+          <th>All IPv4</th>
+          <th>OS</th>
+          <th>Kernel</th>
+          <th>Arch</th>
+          <th>Virt</th>
+          <th>CPU type</th>
+          <th>vCPUs</th>
+          <th>RAM [GiB]</th>
+          <th>Mem Usage</th>
+          <th>Swap Usage</th>
+          <th>Disk usage</th>
+          <th>Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+        
+        <tr>
+              <td>
+  <a href="#127.0.0.1">127.0.0.1</a>
+</td>
+              <td>
+  
+</td>
+              <td>
+  
+</td>
+              <td>
+  
+</td>
+              <td>
+  
+</td>
+              <td>
+  naiteluode-ftasomc-2153113
+</td>
+              <td>
+  
+  172.17.42.45
+</td>
+              <td>
+  
+  172.17.42.45
+</td>
+              <td>
+    Ubuntu 14.04
+</td>
+              <td>
+  4.2.0-c9
+</td>
+              <td>
+  x86_64 / x86_64
+</td>
+              <td>
+  ? / ?
+</td>
+              <td>
+  
+    Intel(R) Xeon(R) CPU @ 2.50GHz
+</td>
+              <td>
+  8
+</td>
+              <td>
+  51.1
+</td>
+              <td>
+        n/a
+</td>
+              <td>
+        n/a
+</td>
+              <td>
+      
+      <span style="display:none">0.851121</span>
+      <div class="bar">
+        <span class="prog_bar_full" style="width:100px">
+          <span class="prog_bar_used" style="width:85.1121088941px"></span>
+        </span> /nix <span class="usage_detail">(1214.6 / 1427.1 GiB)</span>
+      </div>
+      
+      <span style="display:none">0.851121</span>
+      <div class="bar">
+        <span class="prog_bar_full" style="width:100px">
+          <span class="prog_bar_used" style="width:85.1121088941px"></span>
+        </span> /mnt/shared <span class="usage_detail">(1214.6 / 1427.1 GiB)</span>
+      </div>
+      
+      <span style="display:none">0.851121</span>
+      <div class="bar">
+        <span class="prog_bar_full" style="width:100px">
+          <span class="prog_bar_used" style="width:85.1121088941px"></span>
+        </span> /home/ubuntu/.ssh/authorized_keys <span class="usage_detail">(1214.6 / 1427.1 GiB)</span>
+      </div>
+      
+      <span style="display:none">0.851121</span>
+      <div class="bar">
+        <span class="prog_bar_full" style="width:100px">
+          <span class="prog_bar_used" style="width:85.1121088941px"></span>
+        </span> /etc/resolv.conf <span class="usage_detail">(1214.6 / 1427.1 GiB)</span>
+      </div>
+      
+      <span style="display:none">0.851121</span>
+      <div class="bar">
+        <span class="prog_bar_full" style="width:100px">
+          <span class="prog_bar_used" style="width:85.1121088941px"></span>
+        </span> /etc/hostname <span class="usage_detail">(1214.6 / 1427.1 GiB)</span>
+      </div>
+</td>
+              <td>
+    2016-03-08T02:00:50Z
+</td>
+        </tr>
+    </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="hosts">
+    
+    <a href="#127.0.0.1" name="127.0.0.1"><h3 id="127.0.0.1">127.0.0.1</h3></a>
+      
+  <h4>General</h4>
+  <table>
+    <tr><th>Node name</th><td></td></tr>
+    <tr><th>Form factor</th><td>Other</td></tr>
+    <tr><th>Virtualisation role</th><td></td></tr>
+    <tr><th>Virtualisation type</th><td></td></tr>
+  </table>
+
+      
+  <h4>Groups</h4>
+  <ul>
+  </ul>
+
+      
+  <h4>Custom variables</h4>
+  <table>
+  </table>
+
+      
+  <h4>Host local facts</h4>
+  
+  <table>
+  </table>
+
+
+      
+  <h4>Hardware</h4>
+  <table>
+    <tr><th>Vendor</th><td>Google</td></tr>
+    <tr><th>Product name</th><td>Google</td></tr>
+    <tr><th>Product serial</th><td>NA</td></tr>
+    <tr><th>Architecture</th><td>x86_64</td></tr>
+    <tr><th>Machine</th><td>x86_64</td></tr>
+    <tr><th>Processor count</th><td>1</td></tr>
+    <tr><th>Processor cores</th><td>4</td></tr>
+    <tr><th>Processor threads per core</th><td>2</td></tr>
+    <tr><th>Processor virtual CPUs</th><td>8</td></tr>
+    <tr><th>Mem total mb</th><td>52339</td></tr>
+    <tr><th>Mem free mb</th><td>4256</td></tr>
+    <tr><th>Swap total mb</th><td>51199</td></tr>
+    <tr><th>Swap free mb</th><td>49664</td></tr>
+  </table>
+
+      
+  <h4>Operating System</h4>
+  <table>
+    <tr><th>System</th><td>Linux</td></tr>
+    <tr><th>OS Family</th><td>Debian</td></tr>
+    <tr><th>Distribution</th><td>Ubuntu</td></tr>
+    <tr><th>Distribution version</th><td>14.04</td></tr>
+    <tr><th>Distribution release</th><td>trusty</td></tr>
+    <tr><th>Kernel</th><td>4.2.0-c9</td></tr>
+    <tr><th>Userspace bits</th><td>64</td></tr>
+    <tr><th>Userspace_architecture</th><td>x86_64</td></tr>
+    <tr><th>Date time</th><td>2016-03-08T02:00:50Z</td></tr>
+    <tr><th>Locale / Encoding</th><td>C.UTF-8</td></tr>
+    <tr><th>SELinux?</th><td>False</td></tr>
+    <tr><th>Package manager</th><td>apt</td></tr>
+  </table>
+
+      
+  <h4>Network</h4>
+  <table class="net_info">
+    <tr><th>Hostname</th><td>naiteluode-ftasomc-2153113</td></tr>
+    <tr><th>Domain</th><td></td></tr>
+    <tr><th>FQDN</th><td>naiteluode-ftasomc-2153113</td></tr>
+    <tr><th>All IPv4</th><td>172.17.42.45</td></tr>
+  </table>
+    <table class="net_overview">
+      <tr>
+        <th>IPv4 Networks</th>
+        <td>
+          <table class="net_overview">
+            <tr>
+              <th>dev</th>
+              <th>address</th>
+              <th>network</th>
+              <th>netmask</th>
+            </tr>
+              
+                  <tr>
+                    <td>eth0</td>
+                    <td>172.17.42.45</td>
+                    <td>172.17.0.0</td>
+                    <td>255.255.0.0</td>
+                  </tr>
+              
+                  <tr>
+                    <td>lo</td>
+                    <td>127.0.0.1</td>
+                    <td>127.0.0.0</td>
+                    <td>255.0.0.0</td>
+                  </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  <table class="net_iface_details">
+    <tr>
+      <th>Interface details</th>
+      <td>
+        <table>
+              <tr>
+                <th>eth0</th>
+                <td>
+                    
+  <table>
+      <tr>
+        <th>macaddress</th>
+        <td>
+          02:42:ac:11:2a:2d
+        </td>
+      </tr>
+      <tr>
+        <th>mtu</th>
+        <td>
+          1460
+        </td>
+      </tr>
+      <tr>
+        <th>active</th>
+        <td>
+          True
+        </td>
+      </tr>
+      <tr>
+        <th>promisc</th>
+        <td>
+          False
+        </td>
+      </tr>
+      <tr>
+        <th>ipv4</th>
+        <td>
+          
+  <table>
+      <tr>
+        <th>netmask</th>
+        <td>
+          255.255.0.0
+        </td>
+      </tr>
+      <tr>
+        <th>network</th>
+        <td>
+          172.17.0.0
+        </td>
+      </tr>
+      <tr>
+        <th>address</th>
+        <td>
+          172.17.42.45
+        </td>
+      </tr>
+  </table>
+
+        </td>
+      </tr>
+      <tr>
+        <th>ipv6</th>
+        <td>
+          
+      
+  <table>
+      <tr>
+        <th>scope</th>
+        <td>
+          link
+        </td>
+      </tr>
+      <tr>
+        <th>prefix</th>
+        <td>
+          64
+        </td>
+      </tr>
+      <tr>
+        <th>address</th>
+        <td>
+          fe80::42:acff:fe11:2a2d
+        </td>
+      </tr>
+  </table>
+
+
+        </td>
+      </tr>
+      <tr>
+        <th>device</th>
+        <td>
+          eth0
+        </td>
+      </tr>
+      <tr>
+        <th>type</th>
+        <td>
+          ether
+        </td>
+      </tr>
+  </table>
+
+                </td>
+              </tr>
+              <tr>
+                <th>lo</th>
+                <td>
+                    
+  <table>
+      <tr>
+        <th>mtu</th>
+        <td>
+          65536
+        </td>
+      </tr>
+      <tr>
+        <th>active</th>
+        <td>
+          True
+        </td>
+      </tr>
+      <tr>
+        <th>promisc</th>
+        <td>
+          False
+        </td>
+      </tr>
+      <tr>
+        <th>ipv4</th>
+        <td>
+          
+  <table>
+      <tr>
+        <th>netmask</th>
+        <td>
+          255.0.0.0
+        </td>
+      </tr>
+      <tr>
+        <th>network</th>
+        <td>
+          127.0.0.0
+        </td>
+      </tr>
+      <tr>
+        <th>address</th>
+        <td>
+          127.0.0.1
+        </td>
+      </tr>
+  </table>
+
+        </td>
+      </tr>
+      <tr>
+        <th>ipv6</th>
+        <td>
+          
+      
+  <table>
+      <tr>
+        <th>scope</th>
+        <td>
+          host
+        </td>
+      </tr>
+      <tr>
+        <th>prefix</th>
+        <td>
+          128
+        </td>
+      </tr>
+      <tr>
+        <th>address</th>
+        <td>
+          ::1
+        </td>
+      </tr>
+  </table>
+
+
+        </td>
+      </tr>
+      <tr>
+        <th>device</th>
+        <td>
+          lo
+        </td>
+      </tr>
+      <tr>
+        <th>type</th>
+        <td>
+          loopback
+        </td>
+      </tr>
+  </table>
+
+                </td>
+              </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+      
+  <h4>Storage</h4>
+  <table>
+    <tr>
+      <th>Devices</th>
+      <td>
+          
+  <table>
+      <tr>
+        <th>sda</th>
+        <td>
+          
+  <table>
+      <tr>
+        <th>scheduler_mode</th>
+        <td>
+          cfq
+        </td>
+      </tr>
+      <tr>
+        <th>rotational</th>
+        <td>
+          0
+        </td>
+      </tr>
+      <tr>
+        <th>vendor</th>
+        <td>
+          Google
+        </td>
+      </tr>
+      <tr>
+        <th>sectors</th>
+        <td>
+          83886080
+        </td>
+      </tr>
+      <tr>
+        <th>host</th>
+        <td>
+          
+        </td>
+      </tr>
+      <tr>
+        <th>sectorsize</th>
+        <td>
+          512
+        </td>
+      </tr>
+      <tr>
+        <th>removable</th>
+        <td>
+          0
+        </td>
+      </tr>
+      <tr>
+        <th>support_discard</th>
+        <td>
+          4096
+        </td>
+      </tr>
+      <tr>
+        <th>model</th>
+        <td>
+          PersistentDisk
+        </td>
+      </tr>
+      <tr>
+        <th>partitions</th>
+        <td>
+          
+  <table>
+      <tr>
+        <th>sda1</th>
+        <td>
+          
+  <table>
+      <tr>
+        <th>start</th>
+        <td>
+          4096
+        </td>
+      </tr>
+      <tr>
+        <th>sectorsize</th>
+        <td>
+          512
+        </td>
+      </tr>
+      <tr>
+        <th>sectors</th>
+        <td>
+          83881984
+        </td>
+      </tr>
+      <tr>
+        <th>size</th>
+        <td>
+          40.00 GB
+        </td>
+      </tr>
+  </table>
+
+        </td>
+      </tr>
+  </table>
+
+        </td>
+      </tr>
+      <tr>
+        <th>holders</th>
+        <td>
+          
+
+        </td>
+      </tr>
+      <tr>
+        <th>size</th>
+        <td>
+          40.00 GB
+        </td>
+      </tr>
+  </table>
+
+        </td>
+      </tr>
+      <tr>
+        <th>sdb</th>
+        <td>
+          
+  <table>
+      <tr>
+        <th>scheduler_mode</th>
+        <td>
+          cfq
+        </td>
+      </tr>
+      <tr>
+        <th>rotational</th>
+        <td>
+          0
+        </td>
+      </tr>
+      <tr>
+        <th>vendor</th>
+        <td>
+          Google
+        </td>
+      </tr>
+      <tr>
+        <th>sectors</th>
+        <td>
+          2621440000
+        </td>
+      </tr>
+      <tr>
+        <th>host</th>
+        <td>
+          
+        </td>
+      </tr>
+      <tr>
+        <th>sectorsize</th>
+        <td>
+          512
+        </td>
+      </tr>
+      <tr>
+        <th>removable</th>
+        <td>
+          0
+        </td>
+      </tr>
+      <tr>
+        <th>support_discard</th>
+        <td>
+          4096
+        </td>
+      </tr>
+      <tr>
+        <th>model</th>
+        <td>
+          PersistentDisk
+        </td>
+      </tr>
+      <tr>
+        <th>partitions</th>
+        <td>
+          
+  <table>
+  </table>
+
+        </td>
+      </tr>
+      <tr>
+        <th>holders</th>
+        <td>
+          
+      volg1-lvswap
+      volg1-lvdata
+
+        </td>
+      </tr>
+      <tr>
+        <th>size</th>
+        <td>
+          1.22 TB
+        </td>
+      </tr>
+  </table>
+
+        </td>
+      </tr>
+      <tr>
+        <th>sdc</th>
+        <td>
+          
+  <table>
+      <tr>
+        <th>scheduler_mode</th>
+        <td>
+          cfq
+        </td>
+      </tr>
+      <tr>
+        <th>rotational</th>
+        <td>
+          0
+        </td>
+      </tr>
+      <tr>
+        <th>vendor</th>
+        <td>
+          Google
+        </td>
+      </tr>
+      <tr>
+        <th>sectors</th>
+        <td>
+          524288000
+        </td>
+      </tr>
+      <tr>
+        <th>host</th>
+        <td>
+          
+        </td>
+      </tr>
+      <tr>
+        <th>sectorsize</th>
+        <td>
+          512
+        </td>
+      </tr>
+      <tr>
+        <th>removable</th>
+        <td>
+          0
+        </td>
+      </tr>
+      <tr>
+        <th>support_discard</th>
+        <td>
+          4096
+        </td>
+      </tr>
+      <tr>
+        <th>model</th>
+        <td>
+          PersistentDisk
+        </td>
+      </tr>
+      <tr>
+        <th>partitions</th>
+        <td>
+          
+  <table>
+  </table>
+
+        </td>
+      </tr>
+      <tr>
+        <th>holders</th>
+        <td>
+          
+      volg1-lvdata
+
+        </td>
+      </tr>
+      <tr>
+        <th>size</th>
+        <td>
+          250.00 GB
+        </td>
+      </tr>
+  </table>
+
+        </td>
+      </tr>
+  </table>
+
+      </td>
+    </tr>
+    <tr>
+      <th>Mounts</th>
+      <td>
+        
+      
+  <table>
+      <tr>
+        <th>size_total</th>
+        <td>
+          1532353888256
+        </td>
+      </tr>
+      <tr>
+        <th>mount</th>
+        <td>
+          /nix
+        </td>
+      </tr>
+      <tr>
+        <th>size_available</th>
+        <td>
+          228135178240
+        </td>
+      </tr>
+      <tr>
+        <th>fstype</th>
+        <td>
+          ext4
+        </td>
+      </tr>
+      <tr>
+        <th>device</th>
+        <td>
+          /dev/mapper/volg1-lvdata
+        </td>
+      </tr>
+      <tr>
+        <th>options</th>
+        <td>
+          ro,relatime,data=ordered
+        </td>
+      </tr>
+  </table>
+
+      
+  <table>
+      <tr>
+        <th>size_total</th>
+        <td>
+          1532353888256
+        </td>
+      </tr>
+      <tr>
+        <th>mount</th>
+        <td>
+          /mnt/shared
+        </td>
+      </tr>
+      <tr>
+        <th>size_available</th>
+        <td>
+          228135178240
+        </td>
+      </tr>
+      <tr>
+        <th>fstype</th>
+        <td>
+          ext4
+        </td>
+      </tr>
+      <tr>
+        <th>device</th>
+        <td>
+          /dev/mapper/volg1-lvdata
+        </td>
+      </tr>
+      <tr>
+        <th>options</th>
+        <td>
+          ro,relatime,data=ordered
+        </td>
+      </tr>
+  </table>
+
+      
+  <table>
+      <tr>
+        <th>size_total</th>
+        <td>
+          1532353888256
+        </td>
+      </tr>
+      <tr>
+        <th>mount</th>
+        <td>
+          /home/ubuntu/.ssh/authorized_keys
+        </td>
+      </tr>
+      <tr>
+        <th>size_available</th>
+        <td>
+          228135178240
+        </td>
+      </tr>
+      <tr>
+        <th>fstype</th>
+        <td>
+          ext4
+        </td>
+      </tr>
+      <tr>
+        <th>device</th>
+        <td>
+          /dev/mapper/volg1-lvdata
+        </td>
+      </tr>
+      <tr>
+        <th>options</th>
+        <td>
+          ro,relatime,data=ordered
+        </td>
+      </tr>
+  </table>
+
+      
+  <table>
+      <tr>
+        <th>size_total</th>
+        <td>
+          1532353888256
+        </td>
+      </tr>
+      <tr>
+        <th>mount</th>
+        <td>
+          /etc/resolv.conf
+        </td>
+      </tr>
+      <tr>
+        <th>size_available</th>
+        <td>
+          228135178240
+        </td>
+      </tr>
+      <tr>
+        <th>fstype</th>
+        <td>
+          ext4
+        </td>
+      </tr>
+      <tr>
+        <th>device</th>
+        <td>
+          /dev/mapper/volg1-lvdata
+        </td>
+      </tr>
+      <tr>
+        <th>options</th>
+        <td>
+          rw,relatime,data=ordered
+        </td>
+      </tr>
+  </table>
+
+      
+  <table>
+      <tr>
+        <th>size_total</th>
+        <td>
+          1532353888256
+        </td>
+      </tr>
+      <tr>
+        <th>mount</th>
+        <td>
+          /etc/hostname
+        </td>
+      </tr>
+      <tr>
+        <th>size_available</th>
+        <td>
+          228135178240
+        </td>
+      </tr>
+      <tr>
+        <th>fstype</th>
+        <td>
+          ext4
+        </td>
+      </tr>
+      <tr>
+        <th>device</th>
+        <td>
+          /dev/mapper/volg1-lvdata
+        </td>
+      </tr>
+      <tr>
+        <th>options</th>
+        <td>
+          rw,relatime,data=ordered
+        </td>
+      </tr>
+  </table>
+
+
+      </td>
+    </tr>
+  </table>
+
+</div>
+
+<footer>
+  <p>Generated by <a href="https://github.com/fboender/ansible-cmdb">ansible-cmdb</a> v1.12 &dash; &copy; Ferry Boender 2015</p>
+</footer>
+
+<script>
+function getQueryParams(qs) {
+  qs = qs.split('+').join(' ');
+  var params = {},
+    tokens,
+    re = /[?&]?([^=]+)=([^&]*)/g;
+  while (tokens = re.exec(qs)) {
+    params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+  }
+  return params;
+}
+
+$(document).ready( function () {
+  // Initialize the DataTables jQuery plugin on the host overview table
+  var table = $('#host_overview_tbl').DataTable({
+    paging: false,
+    columnDefs: [
+        { "targets": [0], "visible": true },
+        { "targets": [1], "visible": false },
+        { "targets": [2], "visible": false },
+        { "targets": [3], "visible": false },
+        { "targets": [4], "visible": false },
+        { "targets": [5], "visible": true },
+        { "targets": [6], "visible": true },
+        { "targets": [7], "visible": false },
+        { "targets": [8], "visible": true },
+        { "targets": [9], "visible": false },
+        { "targets": [10], "visible": false },
+        { "targets": [11], "visible": true },
+        { "targets": [12], "visible": false },
+        { "targets": [13], "visible": true },
+        { "targets": [14], "visible": true },
+        { "targets": [15], "visible": false },
+        { "targets": [16], "visible": false },
+        { "targets": [17], "visible": false },
+        { "targets": [18], "visible": false },
+    ],
+    "fnInitComplete": function() {
+      // Focus the input field
+      $("#host_overview_tbl_filter input").focus();
+
+      // Set the search box value to the query string 'search' part
+      var qp = getQueryParams(document.location.search);
+      if ("search" in qp) {
+        $("#host_overview_tbl_filter input").val(qp.search);
+        this.fnFilter(qp.search);
+      }
+    }
+
+  });
+  table.on( 'search.dt', function () {
+    // Show a direct link to the search term
+    $('#filter_link').remove();
+    if (table.search() == "") {
+    } else {
+      $('#host_overview_tbl_filter label').after('&nbsp; <span id="filter_link"><a title="Direct link to search" href="?search='+table.search()+'">&nbsp;</a></span>');
+    }
+  } );
+
+  // Show and hide columns on button clicks
+  $('a.col-toggle').on('click', function(e) {
+    e.preventDefault();
+    var column = table.column( $(this).attr('data-column') );
+    column.visible( ! column.visible() );
+    var newClass = ['col-invisible','col-visible'][Number(column.visible())];
+    e.target.className = 'col-toggle ' + newClass;
+  });
+
+  // Show host name in header bar when scrolling
+  $( window ).scroll(function() {
+    var scrollTop = $(window).scrollTop();
+    var curElem = false;
+    $( "#hosts h3" ).each(function( index ) {
+      var el = $(this);
+      if ((el.offset().top - 128) <= scrollTop) {
+        curElem = el;
+      } else {
+        return false;
+      }
+    });
+    if (curElem) {
+      $("header h1").text(curElem.text());
+      $('#top').show();
+    } else {
+      $("header h1").text("Host Overview");
+      $('#top').hide();
+    };
+  });
+});
+</script>
+
+</body>
+</html>

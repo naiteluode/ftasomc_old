@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Ansible Web 管理系统</title>
+        <meta name="description" content="跳羚科技 - Ansible Web 管理系统">
+        <meta name="keywords" content="group">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="icon" type="image/png" href="/static/assets/i/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" href="/static/assets/i/app-icon72x72@2x.png">
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <script src="/static/assets/js/echarts.min.js"></script>
+        <link rel="stylesheet" href="/static/assets/css/amazeui.min.css" />
+        <link rel="stylesheet" href="/static/assets/css/amazeui.datatables.min.css" />
+        <link rel="stylesheet" href="/static/assets/css/app.css">
+        <script src="/static/assets/js/jquery.min.js"></script>
+    </head>
+    <body data-type="group">
+        <script src="/static/assets/js/theme.js"></script>
+
+        <div class="am-g tpl-g">
+            <!-- 头部 -->
+            <header>
+                <!-- logo -->
+                <div class="am-fl tpl-header-logo">
+                    <a href="/"><img src="/static/assets/img/logo.png" alt=""></a>
+                </div>
+                <!-- 右侧内容 -->
+                <div class="tpl-header-fluid">
+                    <!-- 侧边切换 -->
+                    <div class="am-fl tpl-header-switch-button am-icon-list"></div>
+                    <!-- 小标题 -->
+                    <div class=" tpl-header-title am-fl am-vertical-align" style="height: 50px;">
+                        <div class="am-vertical-align-middle am-text-success">
+                            Ansible Web 管理系统
+                        </div>
+                    </div>
+                    <!-- 其它功能-->
+                    <div class="am-fr tpl-header-navbar">
+                        <ul>
+                            <!-- 欢迎语 -->
+                            <li class="am-text-sm tpl-header-navbar-welcome am-dropdown" data-am-dropdown>
+                                <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                                    <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+                                </a>
+                                <!-- 弹出列表 -->
+                                <ul class="am-dropdown-content tpl-dropdown-content">
+                                    <li class="tpl-dropdown-menu-notifications">
+                                        <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                            <div class="tpl-dropdown-menu-notifications-title">
+                                                <i class="am-icon-user"></i>
+                                                <span style="margin-left:10px;">个人资料</span>
+                                            </div>
+                                            <div class="tpl-dropdown-menu-notifications-time">
+                                                <span class="am-badge am-round am-fr" style="background-color:#99CCCC;">User</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="tpl-dropdown-menu-notifications">
+                                        <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                            <div class="tpl-dropdown-menu-notifications-title">
+                                                <i class="am-icon-cog"></i>
+                                                <span style="margin-left:10px;">系统设置</span>
+                                            </div>
+                                            <div class="tpl-dropdown-menu-notifications-time">
+                                                <span class="am-badge am-round am-fr" style="background-color:#CC9999;">Setting</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="tpl-dropdown-menu-notifications">
+                                        <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                            <i class="am-icon-power-off"></i> 退出
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="am-hide-sm-only">
+                                <a href="javascript:;" id="admin-fullscreen">
+                                    <span class="am-icon-arrows-alt"></span>
+                                    <span class="admin-fullText">开启全屏</span>
+                                </a>
+                            </li>
+                            <!-- 退出 -->
+                            <li class="am-text-sm">
+                                <a href="javascript:;">
+                                    <span class="am-icon-sign-out"></span> 退出
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </header>
+            <!-- 风格切换 -->
+            <div class="tpl-skiner">
+                <div class="tpl-skiner-toggle am-icon-cog">
+                </div>
+                <div class="tpl-skiner-content">
+                    <div class="tpl-skiner-content-title">
+                        选择主题
+                    </div>
+                    <div class="tpl-skiner-content-bar">
+                        <span class="skiner-color skiner-white" data-color="theme-white"></span>
+                        <span class="skiner-color skiner-black" data-color="theme-black"></span>
+                    </div>
+                </div>
+            </div>
+            <!-- 侧边导航栏 -->
+            <div class="left-sidebar">
+                <!-- 用户信息 -->
+                <div class="tpl-sidebar-user-panel">
+                    <div class="tpl-user-panel-slide-toggleable">
+                        <div class="tpl-user-panel-profile-picture">
+                            <img src="/static/assets/img/user03.png" alt="">
+                        </div>
+                        <span class="user-panel-logged-in-text">
+                            <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>Gocjy
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 菜单 -->
+                <ul class="sidebar-nav">
+                    <li class="sidebar-nav-link">
+                        <a href="/">
+                            <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="javascript:;" class="sidebar-nav-sub-title">
+                            <i class="am-icon-adn sidebar-nav-link-logo"></i> Ansible
+                            <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                        </a>
+                        <ul class="sidebar-nav sidebar-nav-sub">
+                            <li class="sidebar-nav-link">
+                                <a href="/ansible/">
+                                    <span class="am-icon-adn sidebar-nav-link-logo"></span> Ansible
+                                </a>
+                            </li>
+                            <li class="sidebar-nav-link">
+                                <a href="/playbook/">
+                                    <span class="am-icon-book sidebar-nav-link-logo"></span> Playbook
+                                </a>
+                            </li>
+                            <li class="sidebar-nav-link">
+                                <a href="/hosts/">
+                                    <span class="am-icon-database sidebar-nav-link-logo"></span> Hosts
+                                </a>
+                            </li>
+                            <li class="sidebar-nav-link">
+                                <a href="/files/">
+                                    <span class="am-icon-file sidebar-nav-link-logo"></span> Files
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="javascript:;" class="sidebar-nav-sub-title active">
+                            <i class="am-icon-cogs sidebar-nav-link-logo"></i> 部署管理
+                            <span class="am-icon-chevron-up am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                        </a>
+                        <ul class="sidebar-nav sidebar-nav-sub" style="display: block;">
+                            <li class="sidebar-nav-link">
+                                <a href="/inventory/">
+                                    <span class="am-icon-server sidebar-nav-link-logo"></span> 主机列表
+                                </a>
+                            </li>
+                            <li class="sidebar-nav-link">
+                                <a href="/group/" class="sub-active active">
+                                    <span class="am-icon-sitemap sidebar-nav-link-logo"></span> 主机组列表
+                                </a>
+                            </li>
+                            <li class="sidebar-nav-link">
+                                <a href="/deploy/">
+                                    <span class="am-icon-cubes sidebar-nav-link-logo"></span> 部署发布
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="javascript:;" class="sidebar-nav-sub-title">
+                            <i class="am-icon-users sidebar-nav-link-logo"></i> 用户管理
+                            <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                        </a>
+                        <ul class="sidebar-nav sidebar-nav-sub">
+                            <li class="sidebar-nav-link">
+                                <a href="/user/">
+                                    <span class="am-icon-book sidebar-nav-link-logo"></span> 用户列表
+                                </a>
+                            </li>
+                            <li class="sidebar-nav-link">
+                                <a href="/user/new/">
+                                    <span class="am-icon-plus sidebar-nav-link-logo"></span> 添加用户
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="/log/">
+                            <i class="am-icon-calendar sidebar-nav-link-logo"></i> 系统日志
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="/help/">
+                            <i class="am-icon-puzzle-piece sidebar-nav-link-logo"></i> 帮助
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="/logout/">
+                            <i class="am-icon-sign-out sidebar-nav-link-logo"></i> 注销
+
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 内容区域 -->
+            <div class="tpl-content-wrapper">
+                <div class="container-fluid am-cf">
+                    <div class="row am-cf">
+                        <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                            <div class="page-header-heading">
+                                <span class="am-icon-cogs page-header-heading-icon"></span>
+                                部署管理 <small style="color:#FF9900">/ 主机组列表</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-content am-cf">
+                    <div class="row am-cf">
+                        <div class="am-u-sm-12">
+                            <div class="widget am-cf">
+                                <div class="widget-head am-cf">
+                                    <div class="widget-title am-fl"><span class="am-icon-sitemap"></span> 主机组详细列表</div>
+                                    <div class="widget-function am-fr">
+                                        <a id="refresh" href="javascript:;">
+                                            刷新
+                                            <span class="am-icon-refresh"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="widget-body am-text-center">
+                                    <table width="100%" class="am-table am-table-compact am-table-hover tpl-table-black ">
+                                        <thead>
+                                            <tr>
+                                                <th width="20%" class="am-text-center">ID</th>
+                                                <th width="30%" class="am-text-center">Group</th>
+                                                <th width="30%" class="am-text-center">Project</th>
+                                                <th width="20%" class="am-text-center">Operation</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="groupList"></tbody>
+                                    </table>
+                                    <div class="am-input-group am-cf" style="display: inline-block;">
+                                        <span class="am-input-group-label am-fl"
+                                              style="display: inline-block;width: 80px;">组名</span>
+                                        <input id="add-group-name" type="text" class="am-form-field am-fr"
+                                               style="display: inline-block;width: 200px;border:1px solid #ccc;"/>
+                                    </div>
+                                    <div class="am-input-group am-cf am-margin-left-xl" style="display: inline-block;">
+                                        <span class="am-input-group-label am-fl"
+                                              style="display: inline-block;width: 80px;">工程名</span>
+                                        <input id="add-group-prjname" type="text" class="am-form-field am-fr"
+                                               style="display: inline-block;width: 200px;border:1px solid #ccc;">
+                                        <button id="add-group" type="button"
+                                            class="am-btn am-btn-primary am-fr am-margin-left-xl">添加</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row am-cf">
+                        <div class="am-u-sm-9">
+                            <div class="widget am-cf">
+                                <div class="widget-head am-cf">
+                                    <div class="widget-title am-fl"><span class="am-icon-sitemap"></span> 主机组项目列表</div>
+                                    <div class="widget-function am-fr">
+                                        <a id="groupItem-refresh" href="javascript:;">
+                                            刷新
+                                            <span class="am-icon-refresh"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="widget-body am-text-center">
+                                    <table width="100%" class="am-table am-table-compact am-table-hover tpl-table-black ">
+                                        <thead>
+                                            <tr>
+                                                <th width="20%" class="am-text-center">ID</th>
+                                                <th width="30%" class="am-text-center">Group</th>
+                                                <th width="30%" class="am-text-center">Item</th>
+                                                <th width="20%" class="am-text-center">Operation</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="groupItemList"></tbody>
+                                    </table>
+                                    <div class="am-cf">
+                                        <span class="am-text-primary">组名:
+                                            <select id="select-group" data-am-selected="{dropUp: 1}" style="display: inline-block;width: 60%"></select>
+                                        </span>
+                                        <span class="am-text-primary am-margin-left-sm">项目名:
+                                            <select id="select-item" data-am-selected="{dropUp: 1}" style="display: inline-block;width: 60%"></select>
+                                        </span>
+                                        <button id="add-group-item" type="button"
+                                            class="am-btn am-btn-primary am-margin-left-xl">添加</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="am-u-sm-3">
+                            <div class="widget am-cf">
+                                <div class="widget-head am-cf">
+                                    <div class="widget-title am-fl"><span class="am-icon-sitemap"></span> 项目列表</div>
+                                    <div class="widget-function am-fr">
+                                        <a id="item-refresh" href="javascript:;">
+                                            刷新
+                                            <span class="am-icon-refresh"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="widget-body am-text-center">
+                                    <table width="100%" class="am-table am-table-compact am-table-hover tpl-table-black ">
+                                        <thead>
+                                            <tr>
+                                                <th width="30%" class="am-text-center">ID</th>
+                                                <th width="40%" class="am-text-center">Name</th>
+                                                <th width="30%" class="am-text-center">Operation</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="itemList"></tbody>
+                                    </table>
+                                    <div class="am-input-group am-cf am-margin-top-sm">
+                                        <span class="am-input-group-label am-fl"
+                                              style="display: inline-block;width: 40%;">名称</span>
+                                        <input id="add-item-name" type="text" class="am-form-field am-fr"
+                                               style="display: inline-block;width: 60%;border:1px solid #ccc;">
+                                        <button id="add-item" type="button"
+                                            class="am-btn am-btn-primary am-margin-top-sm">添加</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="am-modal am-modal-alert" tabindex="-1" id="deletebox">
+            <div class="am-modal-dialog">
+              <div class="am-modal-hd">提示</div>
+                <div class="am-modal-bd"></div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                </div>
+            </div>
+        </div>
+        <div class="am-modal am-modal-alert" tabindex="-1" id="msgbox">
+            <div class="am-modal-dialog">
+              <div class="am-modal-hd">提示</div>
+                <div class="am-modal-bd"></div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+                </div>
+            </div>
+        </div>
+        <script src="/static/assets/js/amazeui.min.js"></script>
+        <script src="/static/assets/js/amazeui.datatables.min.js"></script>
+        <script src="/static/assets/js/dataTables.responsive.min.js"></script>
+        <script src="/static/assets/js/app.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                // 页面打开时自动加载列表数据
+                // 主机组列表
+                $.ajax({
+                    type:'post',
+                    url:'/groupList/',
+                    dataType: 'json',
+                    success:function(data){
+                        var list = $("#groupList");
+                        var select = $("#select-group");
+                        list.html("");
+                        select.html("<option selected value=\"\"></option>");
+                        for (x in data) {
+                            var tr =
+                            "<tr class=\"am-text-center\"><td>"+data[x].id+"</td><td>"+data[x].name+"</td><td>"+data[x].project+"</td>"+
+                            "<td><div class=\"tpl-table-black-operation\">"+
+                            "<a href=\"javascript:;\" class=\"delete-tr tpl-table-black-operation-del\"><i class=\"am-icon-trash\"></i> 删除</a>"+
+                            "</div></td></tr>";
+                            var option = "<option value=\""+data[x].id+"\">"+data[x].name+"</option>";
+                            list.append(tr);
+                            select.append(option);
+                        }
+
+                        // 主机组项目列表
+                        $.ajax({
+                            type:'post',
+                            url:'/groupItemList/',
+                            datatype: 'json',
+                            success:function(data){
+                                var list = $("#groupItemList");
+                                list.html("");
+                                for (x in data) {
+                                    var tr =
+                                    "<tr class=\"am-text-center\"><td>"+data[x].id+"</td><td>"+data[x].group+"</td><td>"+data[x].item+"</td>"+
+                                    "<td><div class=\"tpl-table-black-operation\">"+
+                                    "<a href=\"javascript:;\" class=\"delete-tr tpl-table-black-operation-del\"><i class=\"am-icon-trash\"></i> 删除</a>"+
+                                    "</div></td></tr>";
+                                    list.append(tr);
+                                }
+
+                                // 项目列表
+                                $.ajax({
+                                    type:'post',
+                                    url:'/itemList/',
+                                    dataType: 'json',
+                                    success:function(data){
+                                        var list = $("#itemList");
+                                        var select = $("#select-item");
+                                        list.html("");
+                                        select.html("<option selected value=\"\"></option>");
+                                        for (x in data) {
+                                            var tr =
+                                            "<tr class=\"am-text-center\"><td>"+data[x].id+"</td><td>"+data[x].name+"</td>"+
+                                            "<td><div class=\"tpl-table-black-operation\">"+
+                                            "<a href=\"javascript:;\" class=\"delete-tr tpl-table-black-operation-del\"><i class=\"am-icon-trash\"></i> 删除</a>"+
+                                            "</div></td></tr>";
+                                            var option = "<option value=\""+data[x].id+"\">"+data[x].name+"</option>";
+                                            list.append(tr);
+                                            select.append(option);
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+                //删除按钮事件
+                $('#groupList').on('click','.delete-tr',function(){
+                    var thisTr = $(this).parent().parent().parent();
+                    var groupId = thisTr.children(":first").text();
+                    var msg = '你要删除的主机组ID为 ' + groupId;
+                    $("#deletebox .am-modal-bd").text(msg);
+                    $('#deletebox').modal({
+                        relatedTarget: this,
+                        onConfirm: function() {
+                            var thisTr = $(this.relatedTarget).parent().parent().parent();
+                            var id = thisTr.children(":first").text();
+                            $.ajax({
+                                 type:'post',
+                                 url:'/group/delete/',
+                                 data: 'id='+id,
+                                 datatype: 'json',
+                                 success:function(data){
+                                     if (data.status =="ok") {
+                                         thisTr.remove();
+                                         $("#groupItem-refresh").trigger('click');
+                                     }else {
+                                         alert("删除失败");
+                                     }
+                                 }
+                            });
+                        },
+                        onCancel: function() {}
+                    });
+                });
+                $('#itemList').on('click','.delete-tr',function(){
+                    var thisTr = $(this).parent().parent().parent();
+                    var itemId = thisTr.children(":first").text();
+                    var msg = '你要删除的项目ID为 ' + itemId;
+                    $("#deletebox .am-modal-bd").text(msg);
+                    $('#deletebox').modal({
+                        relatedTarget: this,
+                        onConfirm: function() {
+                            var thisTr = $(this.relatedTarget).parent().parent().parent();
+                            var id = thisTr.children(":first").text();
+                            $.ajax({
+                                 type:'post',
+                                 url:'/item/delete/',
+                                 data: 'id='+id,
+                                 datatype: 'json',
+                                 success:function(data){
+                                     if (data.status =="ok") {
+                                         $("#item-refresh").trigger('click');
+                                     }else {
+                                         alert("删除失败");
+                                     }
+                                 }
+                            });
+                        },
+                        onCancel: function() {}
+                    });
+                });
+                $('#groupItemList').on('click','.delete-tr',function(){
+                    var thisTr = $(this).parent().parent().parent();
+                    var id = thisTr.children(":first").text();
+                    var msg = '你要删除的条目ID为 ' + id;
+                    $("#deletebox .am-modal-bd").text(msg);
+                    $('#deletebox').modal({
+                        relatedTarget: this,
+                        onConfirm: function() {
+                            var thisTr = $(this.relatedTarget).parent().parent().parent();
+                            var id = thisTr.children(":first").text();
+                            $.ajax({
+                                 type:'post',
+                                 url:'/groupItem/delete/',
+                                 data: 'id='+id,
+                                 datatype: 'json',
+                                 success:function(data){
+                                     if (data.status =="ok") {
+                                         thisTr.remove();
+                                     }else {
+                                         alert("删除失败");
+                                     }
+                                 }
+                            });
+                        },
+                        onCancel: function() {}
+                    });
+                });
+                // 正则判断组名
+                function checkGroupName(groupName, projectName){
+                    var re =new RegExp("^"+projectName+"\-\\w+$");
+                    if(re.test(groupName)){
+                        return true;
+                    }else {
+                        return false;
+                    }
+                }
+                // 添加按钮事件
+                $('#add-group').click(function(){
+                    var groupName = $('#add-group-name').val();
+                    var projectName = $('#add-group-prjname').val();
+                    if (groupName == "" || groupName == null || projectName == "" || projectName == null) {
+                        $("#msgbox .am-modal-bd").text("主机组名和项目名不能为空");
+                        $('#msgbox').modal({
+                            relatedTarget: this,
+                            onConfirm: function() {}
+                        });
+                    }else {
+                        if (checkGroupName(groupName,projectName)){
+                            $.ajax({
+                                type:'post',
+                                url:'/group/add/',
+                                data: 'name='+groupName+'&project='+projectName,
+                                datatype: 'json',
+                                success:function(data){
+                                    if (data == "ok") {
+                                        $('#add-group-name').val("");
+                                        $('#add-group-prjname').val("");
+                                        $("#refresh").trigger('click');
+                                    }else {
+                                        alert("添加失败！")
+                                    }
+                                }
+                            });
+                        }else {
+                            $("#msgbox .am-modal-bd").text("主机名必须以\"工程名-\"开头,且'-'后不能为空");
+                            $('#msgbox').modal({
+                                relatedTarget: this,
+                                onConfirm: function() {}
+                            });
+                        }
+                    }
+                });
+                $('#add-group-item').click(function(){
+                    var groupId = $('#select-group').val();
+                    var itemId = $('#select-item').val();
+                    if (groupId == "" || groupId == null || itemId == "" || itemId == null) {
+                        $("#msgbox .am-modal-bd").text("主机组名和项目名不能为空");
+                        $('#msgbox').modal({
+                            relatedTarget: this,
+                            onConfirm: function() {}
+                        });
+                    }else {
+                        $.ajax({
+                            type:'post',
+                            url:'/groupItem/add/',
+                            data: 'groupId='+groupId+'&itemId='+itemId,
+                            datatype: 'json',
+                            success:function(data){
+                                if (data == "ok") {
+                                    $("#groupItem-refresh").trigger('click');
+                                }else {
+                                    alert("添加失败！")
+                                }
+                            }
+                        });
+                    }
+                });
+                $('#add-item').click(function(){
+                    var name = $.trim($('#add-item-name').val());
+                    if (name == "" || name == null) {
+                        $("#msgbox .am-modal-bd").text("项目名不能为空");
+                        $('#msgbox').modal({
+                            relatedTarget: this,
+                            onConfirm: function() {}
+                        });
+                    }else {
+                        $.ajax({
+                            type:'post',
+                            url:'/item/add/',
+                            data: 'name='+name,
+                            datatype: 'json',
+                            success:function(data){
+                                if (data == "ok") {
+                                    $('#add-item-name').val("");
+                                    $("#item-refresh").trigger('click');
+                                }else {
+                                    alert("添加失败！")
+                                }
+                            }
+                        });
+                    }
+                });
+                //刷新按钮事件
+                $("#refresh").click(function (){
+                    $.ajax({
+                        type:'post',
+                        url:'/groupList/',
+                         datatype: 'json',
+                        success:function(data){
+                            var list = $("#groupList");
+                            list.html("");
+                            for (x in data) {
+                                var tr =
+                                "<tr class=\"am-text-center\"><td>"+data[x].id+"</td><td>"+data[x].name+"</td><td>"+data[x].project+"</td>"+
+                                "<td><div class=\"tpl-table-black-operation\">"+
+                                 "<a href=\"javascript:;\" class=\"delete-tr tpl-table-black-operation-del\"><i class=\"am-icon-trash\"></i> 删除</a>"+
+                                "</div></td></tr>";
+                                list.append(tr);
+                            }
+                        }
+                    });
+                });
+                $("#groupItem-refresh").click(function (){
+                    $.ajax({
+                        type:'post',
+                        url:'/groupItemList/',
+                        datatype: 'json',
+                        success:function(data){
+                            var list = $("#groupItemList");
+                            list.html("");
+                            for (x in data) {
+                                var tr =
+                                "<tr class=\"am-text-center\"><td>"+data[x].id+"</td><td>"+data[x].group+"</td><td>"+data[x].item+"</td>"+
+                                "<td><div class=\"tpl-table-black-operation\">"+
+                                "<a href=\"javascript:;\" class=\"delete-tr tpl-table-black-operation-del\"><i class=\"am-icon-trash\"></i> 删除</a>"+
+                                "</div></td></tr>";
+                                list.append(tr);
+                            }
+                        }
+                    });
+                });
+                $("#item-refresh").click(function (){
+                    $.ajax({
+                        type:'post',
+                        url:'/itemList/',
+                        datatype: 'json',
+                        success:function(data){
+                            var list = $("#itemList");
+                            var select = $("#select-item");
+                            list.html("");
+                            select.html("<option selected value=\"\"></option>");
+                            for (x in data) {
+                                var tr =
+                                "<tr class=\"am-text-center\"><td>"+data[x].id+"</td><td>"+data[x].name+"</td>"+
+                                "<td><div class=\"tpl-table-black-operation\">"+
+                                "<a href=\"javascript:;\" class=\"delete-tr tpl-table-black-operation-del\"><i class=\"am-icon-trash\"></i> 删除</a>"+
+                                "</div></td></tr>";
+                                var option = "<option value=\""+data[x].id+"\">"+data[x].name+"</option>";
+                                list.append(tr);
+                                select.append(option);
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

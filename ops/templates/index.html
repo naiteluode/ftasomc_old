@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+{% extends "base.html" %}
+{% block title %}
+<title>OMC-控制台</title>
+{% endblock %}
+{% block contentwrapperpage%}
+		{% block pageheader %}
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            控制台
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
+            <li class="active">控制台</li>
+          </ol>
+        </section>
+        {% endblock%}
+
+        <!--Page content-->
+				<!--===================================================-->
+				<div id="page-content">
+                {% block page-content %}
+
+
+                    <div class="row"> <!--首页概览-->
+						<div class="col-sm-3 col-lg-3">
+
+							<!--Registered User-->
+							<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+							<div class="panel media pad-all">
+								<div class="media-left">
+									<span class="icon-wrap icon-wrap-sm icon-circle bg-success">
+									<i class="fa fa-server fa-2x"></i>
+									</span>
+								</div>
+
+								<div class="media-body">
+									<p id="total_servers" class="text-2x mar-no text-thin"></p>
+									<p class="text-muted mar-no">已管理服务器</p>
+								</div>
+							</div>
+							<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+						</div>
+						<div class="col-sm-3 col-lg-3">
+
+							<!--New Order-->
+							<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+							<div class="panel media pad-all">
+								<div class="media-left">
+									<span class="icon-wrap icon-wrap-sm icon-circle bg-info">
+									<i class="fa fa-user fa-2x"></i>
+									</span>
+								</div>
+
+								<div class="media-body">
+									<p id="total_users" class="text-2x mar-no text-thin">0</p>
+									<p class="text-muted mar-no">注册用户数</p>
+								</div>
+							</div>
+							<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+						</div>
+						<div class="col-sm-3 col-lg-3">
+
+							<!--Comments-->
+							<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+							<div class="panel media pad-all">
+								<div class="media-left">
+									<span class="icon-wrap icon-wrap-sm icon-circle bg-warning">
+									<i class="fa fa-comment fa-2x"></i>
+									</span>
+								</div>
+
+								<div  class="media-body">
+									<p id="current_logging_users" style="cursor: pointer" onclick="ShowOnlineUsers()" class="text-2x btn-link  mar-no text-thin"></p>
+									<p class="text-muted mar-no">当前在线用户</p>
+								</div>
+							</div>
+							<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+						</div>
+						<div class="col-sm-3 col-lg-3">
+
+							<!--Sales-->
+							<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+							<div class="panel media pad-all">
+								<div class="media-left">
+									<span class="icon-wrap icon-wrap-sm icon-circle bg-danger">
+									<i class="fa fa-desktop fa-2x"></i>
+									</span>
+								</div>
+
+								<div class="media-body">
+									<p id="current_connected_hosts" style="cursor: pointer" onclick="ShowOnlineHosts()"  class="text-2x mar-no btn-link text-thin"></p>
+									<p class="text-muted mar-no">正在连接的主机数</p>
+								</div>
+							</div>
+							<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+						</div>
+					</div> <!--end首页概览-->
+                    
+                    <div class="row">
+                         <div class="col-lg-12">
+
+                            <div class="panel">
+                                <div class="panel-heading">
+									<h3 class="panel-title">近期批量任务</h3>
+								</div>
+                                <div class="table-responsive">
+								<table class="table table-striped">
+                                {% load custom_tag %}
+									<thead>
+										<tr>
+											<th class="text-center">任务ID</th>
+											<th class="text-center">日期</th>
+											<th>操作用户</th>
+											<th>操作主机数</th>
+											<th>操作类型</th>
+											<th>操作内容</th>
+											<th>成功数</th>
+											<th>失败数</th>
+											<th>未知数</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									{% for task in recent_tasks %}
+                                    <tr>
+                                        <td><a class="btn-link" href="#" >#{{ task.id }}</a></td>
+                                        <td>{{ task.start_time }}</td>
+                                        <td>{{ task.user }}</td>
+                                         <td>{{ task.hosts.select_related.count }}</td>
+                                        <td>{{ task.task_type }}</td>
+
+                                        <td>{{ task.cmd }}</td>
+                                        <td>{% query_set task.tasklogdetail_set "result" "success" %}</td>
+                                        <td>{% query_set task.tasklogdetail_set "result" "failed" %}</td>
+                                        <td>{% query_set task.tasklogdetail_set "result" "unknown" %}</td>
+                                    </tr>
+                                    {% endfor %}
+									</tbody>
+								</table>
+							</div>
+
+                            </div>
+                        </div>
+                        
+                    </div>
+					<div class="row">
+                        <div class="col-lg-4">
+
+                            <div class="panel">
+                                <div class="panel-heading">
+
+									<h3 class="panel-title"><i class="fa fa-user"></i> 一周Top10用户 </h3>
+								</div>
+
+                                <div  class="panel-body" style="height: 300px">
+
+                                    <table class="table  table-condensed">
+											<thead>
+												<tr>
+													<th>用户</th>
+													<th>登录次数</th>
+													<th>操作命令数</th>
+												</tr>
+											</thead>
+											<tbody id="recent_active_users">
+
+											</tbody>
+									</table>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+
+                            <div class="panel">
+                                <div class="panel-heading">
+
+									<h3 class="panel-title"><i class="fa fa-inbox"></i> 一周Top10资产 </h3>
+								</div>
+
+                                <div  class="panel-body" style="height: 300px">
+
+                                    <table class="table  table-condensed">
+											<thead>
+												<tr>
+													<th>主机</th>
+													<th>登录次数</th>
+													<th>操作命令数</th>
+												</tr>
+											</thead>
+											<tbody id="recent_active_servers">
+
+											</tbody>
+									</table>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+
+                            <div class="panel">
+                                <div class="panel-heading">
+
+									<h3 class="panel-title"><i class="fa fa-paper-plane-o"></i> 登录记录 </h3>
+								</div>
+
+                                <div  class="panel-body" style="height: 300px">
+
+                                    <table class="table  table-condensed">
+											<thead>
+												<tr>
+													<th>用户</th>
+													<th>登录次数</th>
+												</tr>
+											</thead>
+											<tbody id="recent_active_userlogin">
+
+											</tbody>
+									</table>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
+                {% block aside-bar %}
+
+		        {% include 'hosts/user_audit_modal.html' %}
+		        {% include 'hosts/user_audit_js.html' %}
+		
+		        {% endblock   %}
+				</div>
+				<!--===================================================-->
+				<!--End page content-->
+				
+        
+        <!-- SCROLL TOP BUTTON -->
+		<!--===================================================-->
+		<button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
+		<!--===================================================-->
+		
+		
+		
+{% endblock %}
+<!--Large Bootstrap Modal-->
+<!--===================================================-->
+<div id="large-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" >
+            <div class="modal-header" style="opacity:1">
+                <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title" id="myLargeModalLabel">当天登录用户</h4>
+
+            </div>
+            <div class="modal-body" >
+                <div id="large-modal-content" style=""/>
+                </div>
+           </div>
+        </div>
+    </div>
+</div>
+<!--===================================================-->
+<!--End Large Bootstrap Modal-->
+</html>

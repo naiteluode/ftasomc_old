@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+<title>OMC-批量命令</title>
+{% endblock %}
+
+{% block css %}
+	<!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    
+    <!-- Bootstrap 3.3.5 -->
+    <link href="/static/hosts/css/bootstrap.min.css" rel="stylesheet">
+    <!--Nifty Stylesheet [ REQUIRED ]-->
+	<link href="/static/hosts/css/nifty.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    
+    
+    <!-- The fav icon -->
+    <link rel="shortcut icon" href="/static/dist/img/shortcut.png">
+    
+    <!--Customize Css [ REQUIRED ]-->
+	<link href="/static/hosts/css/custom.css" rel="stylesheet">
+
+    <!--bootstrap select Css [ REQUIRED ]-->
+	<link href="/static/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+	<link href="/static/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+	<link href="/static/plugins/bootstrap-fileinput//css/fileinput.min.css" rel="stylesheet">
+
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/static/dist/css/ionicons.min.css">
+    
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="/static/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+    
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/static/dist/css/AdminLTE.min.css">
+    
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="/static/dist/css/skins/_all-skins.min.css">
+
+	<!--SCRIPT-->
+	<!--=================================================-->
+
+	<!--Page Load Progress Bar [ OPTIONAL ]-->
+	<link href="/static/dist/css/pace.min.css" rel="stylesheet">
+	<script src="/static/dist/js/pace.min.js"></script>
+
+{% endblock %}
+{% block pageheader %}
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            批量命令
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
+            <li class="active">批量命令</li>
+          </ol>
+        </section>
+        {% endblock%}
+
+{% block contentwrapperpage %}
+    {% csrf_token %}
+    <div class="row" >
+
+        {% include 'hosts/host_list_menu_component.html' %}
+        {% include 'hosts/hosts_multi_cmd_component.html' %}
+
+    </div> <!--end row-->
+    <div class="row">
+        {% include 'hosts/hosts_recent_task_component.html' %}
+
+    </div>
+
+
+
+
+
+{% include 'hosts/multi_task_modal_component.html' %}
+
+{% endblock %}
+{% block js %}
+<!--JAVASCRIPT-->
+	<!--=================================================-->
+
+	<!--jQuery [ REQUIRED ]-->
+	<script src="/static/hosts/js/jquery-2.1.1.min.js"></script>
+
+	<!--BootstrapJS [ RECOMMENDED ]-->
+	<script src="/static/hosts/js/bootstrap.min.js"></script>
+
+	<!--Fast Click [ OPTIONAL ]-->
+	<script src="/static/hosts/js/fastclick.min.js"></script>
+
+	<!--Nifty Admin [ RECOMMENDED ]-->
+	<script src="/static/hosts/js/nifty.min.js"></script>
+	<script src="/static/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+	<script src="/static/plugins/js.cookie.js"></script>
+	<script src="/static/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<script src="/static/plugins/bootstrap-fileinput/js/fileinput.js"></script>
+	<script src="/static/plugins/bootstrap-fileinput/js/plugins/canvas-to-blob.js"></script>
+	<script src="/static/plugins/bootstrap-fileinput/js/fileinput_locale_zh.js"></script>
+
+    <script src="/static/plugins/bootstrap-validator/bootstrapValidator.js"></script>
+    <script src="/static/plugins/highstock/js/highstock.js"></script>
+    <script src="/static/plugins/highstock/js/modules/exporting.js"></script>
+    
+    <!-- AdminLTE App -->
+    <script src="/static/dist/js/app.min.js"></script>
+    <!-- Sparkline -->
+    <script src="/static/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <!-- jvectormap -->
+    <script src="/static/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="/static/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- SlimScroll 1.3.0 -->
+    <script src="/static/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+{% endblock %}
+
+{% block bottom-js %}
+{% include 'hosts/multi_task_js_component.html' %}
+{% endblock %}

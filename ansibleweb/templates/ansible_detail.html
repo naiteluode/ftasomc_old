@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+{% extends "ansible.html" %}
+{% block title %}
+<title>Ansible执行命令</title>
+{% endblock %}
+{% block pageheader %}
+ <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Ansible执行命令
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
+            <li class="active">Ansible执行命令</li>
+          </ol>
+        </section>
+{% endblock%}
+{% block ansiblebody %}
+<div>
+<h1>
+    <span class = 'white-text'>共有 {{ jobs | length }} 任务</span>
+{% if task.rc == 0 or task.rc %}
+    , <span class = 'green-text'>{{ jobs_succeed | length }} 成功</span> , <span class = 'red-text'>{{ jobs_failed | length }} 失败</span>
+{% endif %}
+.
+</h1>
+<table class = 'table table-bordered table-striped table-condensed'>
+  <thead>
+    <tr>
+      <th>主机</th>
+      <th class = 'detail-command'>命令</th>
+      <th>返回代码</th>
+      <th>开始时间</th>
+      <th>结束时间</th>
+      <th>细节内容</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for job in jobs %}
+    <tr>
+      <td><a class = 'anchor' name = '{{ job.id }}'>{{ job.host }}</a></td>
+      <td><span class = 'white-text'>{{ job.cmd }}</span></td>
+      <td>{{ job.rc }}</td>
+      <td>{{ job.start | date:"Y-m-d G:i:s" }}</td>
+      <td>{{ job.end | date:"Y-m-d G:i:s" }}</td>
+      <td><a class="btn btn-success btn-xs" href="{% url 'ansibledetail' id=task.id %}?jobid={{ job.id }}#{{ job.id }}">详细输出 &#187;</a></td>
+    </tr>
+    {% if job.id == jobid %}
+    <tr>
+      <td colspan = '6'>
+        <h3 class = 'green-text'>stdout &#187;</h3>
+        <pre>{{ job.stdout }}</pre>
+        <h3 class = 'red-text'>stderr &#187;</h3>
+        <pre>{{ job.stderr }}</pre>
+      </td>
+    </tr>
+    {% endif %}
+{% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}
+</html>

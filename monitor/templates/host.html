@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+{% extends "base.html" %}
+{% block title %}
+<title>OMC-主机监控</title>
+{% endblock %}
+{% block contentwrapperpage%}
+    <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            主机监控
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
+            <li class="active">主机监控</li>
+          </ol>
+        </section>
+        <br>
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>IP地址</th>
+                        <th>主机名</th>
+                        <th>所属机房</th>
+                        <th>操作系统</th>
+                        <th>创建时间</th></th>
+                        <th>监控状态</th>
+                        <th>性能图形</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for Host in Host_lists %}
+                      <tr>
+                        <td>{{ Host.ip_addr }}</td>
+                        <td>{{ Host.hostname }}</td>
+                        <td>{{ Host.idc }}</td>
+                        <td>{{ Host.system_type }}</td>
+                        <td>{{ Host.created_at }}</td>
+                        <td>{% if Host.enabled == True %}
+                              <span class="label label-success">已监控</span>
+                            {% else %}
+                              <span class="label label-important">未监控</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal14" data-whatever="@getgraphid">查看性能</button>
+                            <div class="modal fade" id="myModal14" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                              <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">监控信息</h4>
+                                    <h6>看不到图形需要登录一下zabbix</h6>
+                                  </div>
+                                  <div class="modal-body">
+                                    <select class="pull-right" id="imgtime">
+                                        <option value="3600">1小时</option>
+                                        <option value="7200">2小时</option>
+                                        <option value="86400">1天</option>
+                                        <option value="604800">7天</option>
+                                        <option value="2592000">1个月</option>
+                                    </select>
+                                    <input type="hidden" name="hostid" id="hostid" value="">
+                                    <img id="img0" src="https://oms-naiteluode.c9users.io/zabbix/chart2.php?graphid=525&period=3600&width=800" style="width:100%"></img>
+                                    <img id="img1" src="" style="width:100%"></img>
+                                    <img id="img2" src="" style="width:100%"></img>
+                                    <img id="img3" src="" style="width:100%"></img>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                <!--    <tfoot>
+                      <tr>
+                        <th>IP地址</th>
+                        <th>设备型号</th>
+                        <th>所属机房</th>
+                        <th>操作系统</th>
+                        <th>业务类型</th>
+                        <th>Ping</th>
+                        <th>装机进度</th>
+                      </tr>
+                    </tfoot> -->
+                  </table>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+        
+      </div><!-- /.content-wrapper -->
+             
+    
+    <!-- jQuery 2.1.4 -->
+    <script src="/static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <!-- DataTables -->
+    <script src="/static/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/static/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="/static/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- page script -->
+    <script>
+      $(function () {
+        $("#example1").DataTable();
+        $('#example2').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false
+        });
+      });
+      $("document").ready(function(){
+          function getgraphid(hostid, time){
+              $.get('/monitor/api/getgraphid/' + hostid + '/',function(data, status){
+                  var jsonObj = $.parseJSON(data);
+                  for(i=0;i<jsonObj.length;i++)
+                      var graphid = jsonObj[i];
+                      $('#img' + i).attr("src","https://oms-naiteluode.c9users.io/zabbix/chart2.php?graphid=" + graphid + "&period=" + time + "$width=800");
+              });
+          });
+      });
+          
+          $('.btn-danger').click(function(){
+              $('#myModal14').modal('show');
+              var hostid = $(this).attr("hostid");
+              var time = $('#imgtime').val();
+              $('#hostid').val(hostid);
+              getgraphid(hostid, time);
+          });
+          
+          $('#imgtime').change(function(){
+              var time = $('#imgtime').val();
+              var hostid = $('#hostid').val();
+              getgraphid(hostid, time);
+          });
+      });
+      
+    </script>
+{% endblock %}
+</html>

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Ansible Web 管理系统</title>
+        <meta name="description" content="跳羚科技 - Ansible Web 管理系统">
+        <meta name="keywords" content="deploy">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="icon" type="image/png" href="/static/assets/i/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" href="/static/assets/i/app-icon72x72@2x.png">
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <script src="/static/assets/js/echarts.min.js"></script>
+        <link rel="stylesheet" href="/static/assets/css/amazeui.min.css" />
+        <link rel="stylesheet" href="/static/assets/css/amazeui.datatables.min.css" />
+        <link rel="stylesheet" href="/static/assets/css/app.css">
+        <script src="/static/assets/js/jquery.min.js"></script>
+    </head>
+    <body data-type="deploy">
+        <script src="/static/assets/js/theme.js"></script>
+        <div class="am-g tpl-g">
+            <!-- 头部 -->
+            <header>
+                <!-- logo -->
+                <div class="am-fl tpl-header-logo">
+                    <a href="/"><img src="/static/assets/img/logo.png" alt=""></a>
+                </div>
+                <!-- 右侧内容 -->
+                <div class="tpl-header-fluid">
+                    <!-- 侧边切换 -->
+                    <div class="am-fl tpl-header-switch-button am-icon-list"></div>
+                    <!-- 小标题 -->
+                    <div class=" tpl-header-title am-fl am-vertical-align" style="height: 50px;">
+                        <div class="am-vertical-align-middle am-text-success">
+                            Ansible Web 管理系统
+                        </div>
+                    </div>
+                    <!-- 其它功能-->
+                    <div class="am-fr tpl-header-navbar">
+                        <ul>
+                            <!-- 欢迎语 -->
+                            <li class="am-text-sm tpl-header-navbar-welcome am-dropdown" data-am-dropdown>
+                                <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                                    <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+                                </a>
+                                <!-- 弹出列表 -->
+                                <ul class="am-dropdown-content tpl-dropdown-content">
+                                    <li class="tpl-dropdown-menu-notifications">
+                                        <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                            <div class="tpl-dropdown-menu-notifications-title">
+                                                <i class="am-icon-user"></i>
+                                                <span style="margin-left:10px;">个人资料</span>
+                                            </div>
+                                            <div class="tpl-dropdown-menu-notifications-time">
+                                                <span class="am-badge am-round am-fr" style="background-color:#99CCCC;">User</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="tpl-dropdown-menu-notifications">
+                                        <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                            <div class="tpl-dropdown-menu-notifications-title">
+                                                <i class="am-icon-cog"></i>
+                                                <span style="margin-left:10px;">系统设置</span>
+                                            </div>
+                                            <div class="tpl-dropdown-menu-notifications-time">
+                                                <span class="am-badge am-round am-fr" style="background-color:#CC9999;">Setting</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="tpl-dropdown-menu-notifications">
+                                        <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                            <i class="am-icon-power-off"></i> 退出
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="am-hide-sm-only">
+                                <a href="javascript:;" id="admin-fullscreen">
+                                    <span class="am-icon-arrows-alt"></span>
+                                    <span class="admin-fullText">开启全屏</span>
+                                </a>
+                            </li>
+                            <!-- 退出 -->
+                            <li class="am-text-sm">
+                                <a href="javascript:;">
+                                    <span class="am-icon-sign-out"></span> 退出
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </header>
+            <!-- 风格切换 -->
+            <div class="tpl-skiner">
+                <div class="tpl-skiner-toggle am-icon-cog">
+                </div>
+                <div class="tpl-skiner-content">
+                    <div class="tpl-skiner-content-title">
+                        选择主题
+                    </div>
+                    <div class="tpl-skiner-content-bar">
+                        <span class="skiner-color skiner-white" data-color="theme-white"></span>
+                        <span class="skiner-color skiner-black" data-color="theme-black"></span>
+                    </div>
+                </div>
+            </div>
+            <!-- 侧边导航栏 -->
+            <div class="left-sidebar">
+                <!-- 用户信息 -->
+                <div class="tpl-sidebar-user-panel">
+                    <div class="tpl-user-panel-slide-toggleable">
+                        <div class="tpl-user-panel-profile-picture">
+                            <img src="/static/assets/img/user03.png" alt="">
+                        </div>
+                        <span class="user-panel-logged-in-text">
+                            <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>Gocjy
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 菜单 -->
+                <ul class="sidebar-nav">
+                    <li class="sidebar-nav-link">
+                        <a href="/">
+                            <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="javascript:;" class="sidebar-nav-sub-title">
+                            <i class="am-icon-adn sidebar-nav-link-logo"></i> Ansible
+                            <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                        </a>
+                        <ul class="sidebar-nav sidebar-nav-sub">
+                            <li class="sidebar-nav-link">
+                                <a href="/ansible/">
+                                    <span class="am-icon-adn sidebar-nav-link-logo"></span> Ansible
+                                </a>
+                            </li>
+                            <li class="sidebar-nav-link">
+                                <a href="/playbook/">
+                                    <span class="am-icon-book sidebar-nav-link-logo"></span> Playbook
+                                </a>
+                            </li>
+                            <li class="sidebar-nav-link">
+                                <a href="/hosts/">
+                                    <span class="am-icon-database sidebar-nav-link-logo"></span> Hosts
+                                </a>
+                            </li>
+                            <li class="sidebar-nav-link">
+                                <a href="/files/">
+                                    <span class="am-icon-file sidebar-nav-link-logo"></span> Files
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="javascript:;" class="sidebar-nav-sub-title active">
+                            <i class="am-icon-cogs sidebar-nav-link-logo"></i> 部署管理
+                            <span class="am-icon-chevron-up am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                        </a>
+                        <ul class="sidebar-nav sidebar-nav-sub" style="display: block;">
+                            <li class="sidebar-nav-link">
+                                <a href="/inventory/">
+                                    <span class="am-icon-server sidebar-nav-link-logo"></span> 主机列表
+                                </a>
+                            </li>
+                            <li class="sidebar-nav-link">
+                                <a href="/group/">
+                                    <span class="am-icon-sitemap sidebar-nav-link-logo"></span> 主机组列表
+                                </a>
+                            </li>
+                            <li class="sidebar-nav-link">
+                                <a href="/deploy/" class="sub-active active">
+                                    <span class="am-icon-cubes sidebar-nav-link-logo"></span> 部署发布
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="javascript:;" class="sidebar-nav-sub-title">
+                            <i class="am-icon-users sidebar-nav-link-logo"></i> 用户管理
+                            <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                        </a>
+                        <ul class="sidebar-nav sidebar-nav-sub">
+                            <li class="sidebar-nav-link">
+                                <a href="/user/">
+                                    <span class="am-icon-book sidebar-nav-link-logo"></span> 用户列表
+                                </a>
+                            </li>
+                            <li class="sidebar-nav-link">
+                                <a href="/user/new/">
+                                    <span class="am-icon-plus sidebar-nav-link-logo"></span> 添加用户
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="/log/">
+                            <i class="am-icon-calendar sidebar-nav-link-logo"></i> 系统日志
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="/help/">
+                            <i class="am-icon-puzzle-piece sidebar-nav-link-logo"></i> 帮助
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="/logout/">
+                            <i class="am-icon-sign-out sidebar-nav-link-logo"></i> 注销
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 内容区域 -->
+            <div class="tpl-content-wrapper">
+                <div class="container-fluid am-cf">
+                    <div class="row am-cf">
+                        <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                            <div class="page-header-heading">
+                                <span class="am-icon-cogs page-header-heading-icon"></span>
+                                部署管理 <small style="color:#FF9900">/ 部署发布</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-content am-cf">
+                    <div class="widget">
+                        <div class="widget-head am-cf">
+                            <div class="widget-title am-fl"><span class="am-icon-wrench"></span> 部署执行</div>
+                        </div>
+                        <div class="widget widget-body">
+
+                            <div class="row am-cf">
+                                <div class="am-u-sm-12">
+                                    <div class="widget am-cf" style="border: 1px solid rgba(94,185,94,.35); ">
+                                        <div class="widget-head am-cf" style="color: #5eb95e;background-color: rgba(94,185,94,.35);">
+                                            <div class="widget-title am-fl"><span class="am-icon-mouse-pointer"></span> 项目选择</div>
+                                        </div>
+                                        <div class="widget-body am-cf">
+                                            <p>说明：分为选择部署或者全部部署，视具体情况，二选一即可！</p>
+                                            <div style="height: 1px;margin:15px 0px;border-top: 1px solid rgba(94,185,94,.35);"></div>
+                                            <div class="am-tabs" data-am-tabs>
+                                                <ul class="am-tabs-nav am-nav am-nav-tabs">
+                                                    <li class="am-active"><a href="#deploy-select">选择部署</a></li>
+                                                    <li><a href="#deploy-all">全部部署</a></li>
+                                                </ul>
+                                                <div class="am-tabs-bd am-tabs-bd-ofv">
+                                                    <div class="am-tab-panel am-active" id="deploy-select">
+                                                        <div class="am-form tpl-form-border-form">
+                                                            <span class="am-margin-right am-text-secondary">选择部署：</span>
+                                                            <span class="am-margin-right"><select id="select-project" data-am-selected></select></span>
+                                                            <span class="am-margin-right"><select id="select-group" data-am-selected></select></span>
+                                                            <span class="am-margin-right"><select id="select-item" multiple data-am-selected></select></span>
+                                                            <span class="am-fr">
+                                                                <button id="choose-confirm" class="am-btn am-btn-primary">确定选择</button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="am-tab-panel" id="deploy-all">
+                                                        <div class="am-form tpl-form-border-form">
+                                                            <span class="am-margin-right am-text-secondary">全部部署：</span>
+                                                            <span class="am-margin-right"><select id="select-project-only" data-am-selected></select></span>
+                                                            <span class="am-fr">
+                                                                <button id="choose-all-confirm" class="am-btn am-btn-primary">确定选择</button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row am-cf">
+                                <div class="am-u-sm-12">
+                                    <div class="widget am-cf" style="border: 1px solid rgba(59,180,242,.35);">
+                                        <div class="widget-head am-cf" style="color: #14a6ef;background-color: rgba(59,180,242,.35);">
+                                            <div class="widget-title am-fl"><span class="am-icon-info-circle"></span> 任务详情</div>
+                                        </div>
+                                        <div class="widget-body am-cf">
+                                            <div class="am-cf">
+                                                <span>说明：这里是即将执行任务的详细列表！</span>
+                                                <span class="am-fr">
+                                                    <button id="mission-start" class="am-btn am-btn-success">确定执行</button>
+                                                    <button id="reset-table" class="am-btn am-btn-danger">重置列表</button>
+                                                </span>
+                                            </div>
+                                            <div style="height: 1px;margin:15px 0px;border-top: 1px solid rgba(59,180,242,.35);"></div>
+                                            <div id="mission-content">没有任务</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row am-cf">
+                                <div class="am-u-sm-12">
+                                    <div class="widget am-cf" style="border: 1px solid rgba(243,123,29,.35);">
+                                        <div class="widget-head am-cf" style="color: #F37B1D;background-color: rgba(243,123,29,.35);">
+                                            <div class="widget-title am-fl"><span class="am-icon-commenting"></span> 日志输出</div>
+                                        </div>
+                                        <div class="widget-body">
+                                            <div class="am-cf">
+                                                <span>说明：这里显示每项任务的实时日志！</span>
+                                                <span class="am-fr">
+                                                    <button id="reset-log" class="am-btn am-btn-danger">重置列表</button>
+                                                </span>
+                                            </div>
+                                            <div style="height: 1px;margin:15px 0px;border-top: 1px solid rgba(243,123,29,.35);"></div>
+                                            <div id="log-content">没有实时日志</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="am-modal am-modal-alert" tabindex="-1" id="alertbox">
+            <div class="am-modal-dialog">
+              <div class="am-modal-hd">提示</div>
+                <div class="am-modal-bd"></div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+                </div>
+            </div>
+        </div>
+        <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="progress-box">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd am-text-warning"><span class="am-icon-warning"></span> 正在执行列表任务，请稍候...</div>
+                <div class="am-modal-bd">
+                  <span class="am-icon-spinner am-icon-spin"></span>
+                </div>
+            </div>
+        </div>
+        <div class="am-modal am-modal-alert" tabindex="-1" id="progress-box-success">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd am-text-secondary">提示</div>
+                <div class="am-modal-bd am-text-success">
+                    <span class="am-icon-check"></span>
+                    执行完毕！
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+                </div>
+            </div>
+        </div>
+        <script src="/static/assets/js/amazeui.min.js"></script>
+        <script src="/static/assets/js/amazeui.datatables.min.js"></script>
+        <script src="/static/assets/js/dataTables.responsive.min.js"></script>
+        <script src="/static/assets/js/app.js"></script>
+        <script src="/static/assets/js/jquery.tabletojson.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                // 定义一个进度条
+                var progress = $.AMUI.progress;
+                function alertBox(msg){
+                    $("#alertbox .am-modal-bd").text(msg);
+                    $('#alertbox').modal({
+                        relatedTarget: this,
+                        onConfirm: function() {}
+                    });
+                }
+                // 确定执行按钮事件
+                $('#mission-start').click(function () {
+                    var txt = $('#mission-content').html();
+                    if (txt == "没有任务" || txt == "") {
+                        alertBox("没有任务！");
+                    }else {
+                        // 调用tableToJSON插件将表格数据转化为json
+                        var table = $('#mission-table').tableToJSON();
+                        // 进度条开启
+                        progress.start();
+                        $('#progress-box').modal();
+                        // 将日志框内容清空
+                        var log = $('#log-content');
+                        log.html('');
+                        //递归执行ajax请求
+                        var currentIndex = 0;
+                        function startMission(){
+                            if(currentIndex>=table.length){
+                                $('#progress-box').modal('close');
+                                $('#progress-box-success').modal({
+                                    relatedTarget: this,
+                                    onConfirm: function () {}
+                                });
+                                return;
+                            }
+                            $.ajax({
+                                type: 'post',
+                                url: '/startMission/',
+                                data: 'group=' + table[currentIndex].Group + '&ip=' + table[currentIndex].IP + '&item=' + table[currentIndex].Item,
+                                success: function (data) {
+                                    var title = "<div style=\"color: #CC9999;\">部署: [<span style=\"color: #CC6699;\"> " +
+                                            table[currentIndex].Project + "</span> ] [<span style=\"color: #CC6699;\"> " +
+                                            table[currentIndex].Group + "</span> ] [<span style=\"color: #CC6699;\"> "+
+                                            table[currentIndex].IP +" </span>] [<span style=\"color: #CC6699;\"> "+
+                                            table[currentIndex].Item +" </span>]</div>";
+                                    currentIndex++;
+                                    $('#log-content').append(title);
+                                    var log_line = "<pre id="+currentIndex+" class=\"am-pre-scrollable\">"+data+"</pre>";
+                                    $('#log-content').append(log_line);
+                                    var log_node = $("#"+currentIndex);
+                                    var text = log_node.html();
+                                    //$("#"+currentIndex).height($("#"+currentIndex)[0].scrollHeight + 'px');
+                                    //高亮中括号内标题内容
+                                    var s1 = text.replace(new RegExp("\\[\\B(.| )+?\\B\\]","igm"),
+                                            function($1){return "[<span style=\"color: #3399CC;\">"+$1.substring(1,$1.length-1)+"</span>]"});
+                                    log_node.html(s1);
+                                    text = log_node.html();
+                                    // 高亮中括号两边不包括空格的字符
+                                    var s2 = text.replace(new RegExp("\\[\\b.+?\\b\\]","igm"),
+                                            function($1){return "[<span style=\"color: #CC6699;\">"+$1.substring(1,$1.length-1)+"</span>]"});
+                                    log_node.html(s2);
+                                    text = log_node.html();
+                                    //更改所有的No hosts matched错误颜色
+                                    var reg = new RegExp("no hosts matched","g");
+                                    var s3 = text.replace(reg,"<span style=\"color:#FF6666\">no hosts matched</span>");
+                                    log_node.html(s3);
+                                    text = log_node.html();
+                                    //将所有的IP地址高亮
+                                    var s4 = text.replace(new RegExp("\\d+\\.\\d+\\.\\d+\\.\\d+","igm"), function($1){return "<span style=\"color: #CC6699;font-weight:bold;\">"+$1+"</span>"});
+                                    log_node.html(s4);
+                                    text = log_node.html();
+                                    //将所有的Playbook关键字高亮
+                                    var s5 = text.replace(new RegExp("(GATHERING FACTS|TASK|(PLAY)+( RECAP)*)","gm"), function($1){return "<span style=\"color: #669999;\">"+$1+"</span>"});
+                                    log_node.html(s5);
+                                    startMission();
+                                    $('html, body').animate({scrollTop: $(document).height()},'fast');
+                                }
+                            });
+                        }
+                        startMission();
+                        progress.done();
+                    }
+                });
+                // 重置按钮事件
+                $('#reset-table').click(function () {
+                    $('#mission-content').html("没有任务");
+                });
+                $('#reset-log').click(function () {
+                    $('#log-content').html("没有实时日志");
+                });
+                // 选择部署确定按钮事件
+                $('#choose-confirm').click(function (){
+                    var grpId = $('#select-group').val();
+                    var grpName = $('#select-group').find("option:selected").text();
+                    var itms = $('#select-item').val();
+                    if (grpId == "" || grpId==null || itms == "" || itms==null){
+                        alertBox("请选择需要部署的详细项目信息！");
+                    }else {
+                        progress.start();
+                        // 获取该组的主机ip列表
+                        $.ajax({
+                            type:'post',
+                            url:'/getIPByGrpId/',
+                            data: 'id='+grpId,
+                            dataType: 'json',
+                            success:function(data){
+                                // 将item由逗号分隔成列表，方便循环
+                                var itmList = (itms+"").split(',');
+                                var table =
+                                "<table id=\"mission-table\" width=\"100%\" class=\"am-table am-table-bordered am-table-compact am-table-hover tpl-table-black\">"+
+                                    "<thead>"+
+                                        "<tr>"+
+                                            "<th width=\"25%\" class=\"am-text-center\">Project</th>"+
+                                            "<th width=\"25%\" class=\"am-text-center\">Group</th>"+
+                                            "<th width=\"35%\" class=\"am-text-center\">IP</th>"+
+                                            "<th width=\"15%\" class=\"am-text-center\">Item</th>"+
+                                        "</tr>"+
+                                    "</thead>"+
+                                    "<tbody id=\"missionList\"></tbody>"+
+                                "</table>";
+                                $('#mission-content').html(table);
+                                var grpNameSplit = (grpName+"").split('-');
+                                var groupName = grpNameSplit[grpNameSplit.length - 1];
+                                var projectName = grpNameSplit[0];
+                                for (var j=0; j<itmList.length; j++) {
+                                    for (var i=0 ; i<data.length; i++) {
+                                        var tr = "<tr class=\"am-text-center\"><td>"+projectName+"</td><td>"+groupName+"</td><td>"+data[i].ip+"</td><td>"+itmList[j]+"</td></tr>";
+                                        $('#missionList').append(tr);
+                                    }
+                                }
+                                progress.done();
+                            }
+                        });
+                    }
+
+                });
+                // 全部部署确定按钮事件
+                $('#choose-all-confirm').click(function (){
+                    var project = $('#select-project-only').val();
+                    if (project == "" ||project==null){
+                        alertBox("请选择需要全部部署的工程！");
+                    }else {
+                        progress.start();
+                        $.ajax({
+                            type:'post',
+                            url:'/getAllMissionByPrj/',
+                            data: 'project='+project,
+                            dataType: 'json',
+                            success:function(data){
+                                var table =
+                                "<table id=\"mission-table\" width=\"100%\" class=\"am-table am-table-bordered am-table-compact am-table-hover tpl-table-black\">"+
+                                    "<thead>"+
+                                        "<tr>"+
+                                            "<th width=\"25%\" class=\"am-text-center\">Project</th>"+
+                                            "<th width=\"25%\" class=\"am-text-center\">Group</th>"+
+                                            "<th width=\"35%\" class=\"am-text-center\">IP</th>"+
+                                            "<th width=\"15%\" class=\"am-text-center\">Item</th>"+
+                                        "</tr>"+
+                                    "</thead>"+
+                                    "<tbody id=\"missionList\"></tbody>"+
+                                "</table>";
+                                $('#mission-content').html(table);
+                                for (var i=0 ; i<data.length; i++) {
+                                    var grpNameSplit = (data[i].group+"").split('-');
+                                    var groupName = grpNameSplit[grpNameSplit.length - 1];
+                                    var projectName = grpNameSplit[0];
+                                    var tr = "<tr class=\"am-text-center\"><td>"+projectName+"</td><td>"+groupName+"</td><td>"+data[i].ip+"</td><td>"+data[i].item+"</td></tr>";
+                                    $('#missionList').append(tr);
+                                }
+                                progress.done();
+                            }
+                        });
+                    }
+
+                });
+                // 加载工程下拉列表
+                $.ajax({
+                    type:'post',
+                    url:'/projectList/',
+                    dataType: 'json',
+                    success:function(data){
+                        var select = $("#select-project");
+                        select.html("<option selected value=\"\"></option>");
+                        var selectOnly = $("#select-project-only");
+                        selectOnly.html("<option selected value=\"\"></option>");
+                        for (x in data) {
+                            var name = data[x].name;
+                            var option = "<option value=\""+name+"\">"+name+"</option>";
+                            select.append(option);
+                            selectOnly.append(option);
+                        }
+                    }
+                });
+                // 根据工程id获取主机组下拉列表
+                $("#select-project").change(function() {
+                    progress.start();
+                    $.ajax({
+                        type:'post',
+                        url:'/getGrpByPrj/'+$(this).val()+'/',
+                        dataType: 'json',
+                        success:function(data){
+                            var select = $("#select-group");
+                            select.html("<option selected value=\"\"></option>");
+                            for (x in data) {
+                                var id = data[x].id;
+                                var name = data[x].name;
+                                var option = "<option value=\""+id+"\">"+name+"</option>";
+                                select.append(option);
+                            }
+                            progress.done();
+                        }
+                    });
+                });
+                // 根据主机组获取项目下拉列表
+                $("#select-group").change(function() {
+                    progress.start();
+                    $.ajax({
+                        type:'post',
+                        url:'/getItmByGrp/'+$(this).val()+'/',
+                        dataType: 'json',
+                        success:function(data){
+                            var select = $("#select-item");
+                            select.html("<option selected value=\"\"></option>");
+                            for (x in data) {
+                                var id = data[x].id;
+                                var name = data[x].name;
+                                var option = "<option value=\""+name+"\">"+name+"</option>";
+                                select.append(option);
+                            }
+                            progress.done();
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

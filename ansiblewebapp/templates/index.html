@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ansible Web 管理系统</title>
+    <meta name="description" content="跳羚科技 - Ansible Web 管理系统">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="/static/assets/i/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="/static/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <script src="/static/assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="/static/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="/static/assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="/static/assets/css/app.css">
+    <script src="/static/assets/js/jquery.min.js"></script>
+</head>
+
+<body data-type="index">
+    <script src="/static/assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+        <!-- 头部 -->
+        <header>
+            <!-- logo -->
+            <div class="am-fl tpl-header-logo">
+                <a href="/"><img src="/static/assets/img/logo.png" alt=""></a>
+            </div>
+            <!-- 右侧内容 -->
+            <div class="tpl-header-fluid">
+                <!-- 侧边切换 -->
+                <div class="am-fl tpl-header-switch-button am-icon-list"></div>
+                <!-- 小标题 -->
+                <div class=" tpl-header-title am-fl am-vertical-align" style="height: 50px;">
+                	<div class="am-vertical-align-middle am-text-success">
+                		Ansible Web 管理系统
+                	</div>
+            	</div>
+                <!-- 其它功能-->
+                <div class="am-fr tpl-header-navbar">
+                    <ul>
+                        <!-- 欢迎语 -->
+                        <li class="am-text-sm tpl-header-navbar-welcome am-dropdown" data-am-dropdown>
+                            <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                            	<span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+                            </a>
+                        	<!-- 弹出列表 -->
+                            <ul class="am-dropdown-content tpl-dropdown-content">
+                                <li class="tpl-dropdown-menu-notifications">
+                                    <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                        <div class="tpl-dropdown-menu-notifications-title">
+                                            <i class="am-icon-user"></i>
+                                            <span style="margin-left:10px;">个人资料</span>
+                                        </div>
+                                        <div class="tpl-dropdown-menu-notifications-time">
+                                            <span class="am-badge am-round am-fr" style="background-color:#99CCCC;">User</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="tpl-dropdown-menu-notifications">
+                                    <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                        <div class="tpl-dropdown-menu-notifications-title">
+                                            <i class="am-icon-cog"></i>
+                                            <span style="margin-left:10px;">系统设置</span>
+                                        </div>
+                                        <div class="tpl-dropdown-menu-notifications-time">
+                                            <span class="am-badge am-round am-fr" style="background-color:#CC9999;">Setting</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="tpl-dropdown-menu-notifications">
+                                    <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                        <i class="am-icon-power-off"></i> 退出
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="am-hide-sm-only">
+                        	<a href="javascript:;" id="admin-fullscreen">
+                        		<span class="am-icon-arrows-alt"></span>
+                        		<span class="admin-fullText">开启全屏</span>
+                        	</a>
+                        </li>
+                        <!-- 退出 -->
+                        <li class="am-text-sm">
+                            <a href="javascript:;">
+                                <span class="am-icon-sign-out"></span> 退出
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </header>
+        <!-- 风格切换 -->
+        <div class="tpl-skiner">
+            <div class="tpl-skiner-toggle am-icon-cog">
+            </div>
+            <div class="tpl-skiner-content">
+                <div class="tpl-skiner-content-title">
+                    选择主题
+                </div>
+                <div class="tpl-skiner-content-bar">
+                    <span class="skiner-color skiner-white" data-color="theme-white"></span>
+                    <span class="skiner-color skiner-black" data-color="theme-black"></span>
+                </div>
+            </div>
+        </div>
+        <!-- 侧边导航栏 -->
+        <div class="left-sidebar">
+            <!-- 用户信息 -->
+            <div class="tpl-sidebar-user-panel">
+                <div class="tpl-user-panel-slide-toggleable">
+                    <div class="tpl-user-panel-profile-picture">
+                        <img src="/static/assets/img/user03.png" alt="">
+                    </div>
+                    <span class="user-panel-logged-in-text">
+                        <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>Gocjy
+                    </span>
+                </div>
+            </div>
+
+            <!-- 菜单 -->
+            <ul class="sidebar-nav">
+                <li class="sidebar-nav-link">
+                    <a href="/" class="active">
+                        <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-adn sidebar-nav-link-logo"></i> Ansible
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                            <a href="/ansible/">
+                                <span class="am-icon-adn sidebar-nav-link-logo"></span> Ansible
+                            </a>
+                        </li>
+                        <li class="sidebar-nav-link">
+                            <a href="/playbook/">
+                                <span class="am-icon-book sidebar-nav-link-logo"></span> Playbook
+                            </a>
+                        </li>
+                        <li class="sidebar-nav-link">
+                            <a href="/hosts/">
+                                <span class="am-icon-database sidebar-nav-link-logo"></span> Hosts
+                            </a>
+                        </li>
+                        <li class="sidebar-nav-link">
+                            <a href="/files/">
+                                <span class="am-icon-file sidebar-nav-link-logo"></span> Files
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-cogs sidebar-nav-link-logo"></i> 部署管理
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                            <a href="/inventory/">
+                                <span class="am-icon-server sidebar-nav-link-logo"></span> 主机列表
+                            </a>
+                        </li>
+                        <li class="sidebar-nav-link">
+                            <a href="/group/">
+                                <span class="am-icon-sitemap sidebar-nav-link-logo"></span> 主机组列表
+                            </a>
+                        </li>
+                        <li class="sidebar-nav-link">
+                            <a href="/deploy/">
+                                <span class="am-icon-cubes sidebar-nav-link-logo"></span> 部署发布
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-users sidebar-nav-link-logo"></i> 用户管理
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                            <a href="/user/">
+                                <span class="am-icon-book sidebar-nav-link-logo"></span> 用户列表
+                            </a>
+                        </li>
+                        <li class="sidebar-nav-link">
+                            <a href="/user/new/">
+                                <span class="am-icon-plus sidebar-nav-link-logo"></span> 添加用户
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="/log/">
+                        <i class="am-icon-calendar sidebar-nav-link-logo"></i> 系统日志
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="/help/">
+                        <i class="am-icon-puzzle-piece sidebar-nav-link-logo"></i> 帮助
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="/logout/">
+                        <i class="am-icon-sign-out sidebar-nav-link-logo"></i> 注销
+
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+
+            <div class="container-fluid am-cf">
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                        <div class="page-header-heading">
+                        	<span class="am-icon-home page-header-heading-icon"></span>
+                            首页 <small style="color:#FF9900">/ 仪表盘</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+			<div class="row-content am-cf">
+				<div class="row">
+					<a href="/inventory/" class="am-text-success">
+			            <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+	                        <div class="widget am-cf">
+	                            <div class="widget-head am-cf">
+	                                <div class="widget-title am-fl">主机总数</div>
+	                                <div class="widget-function am-fr">
+	                                    <span class="am-badge am-badge-success am-round am-vertical-align-middle">
+                                            Hosts</span>
+	                                </div>
+	                            </div>
+	                            <div class="widget-body am-text-center">
+	                                <span class="am-vertical-align-middle am-text-success am-text-xxl">{{ hosts }}</span>
+	                            </div>
+	                        </div>
+	                    </div>
+                    </a>
+                    <a href="/group/" class="am-text-success">
+                    	<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+	                        <div class="widget am-cf">
+	                            <div class="widget-head am-cf">
+	                                <div class="widget-title am-fl">主机组数</div>
+	                                <div class="widget-function am-fr">
+	                                    <span class="am-badge am-badge-danger am-round am-vertical-align-middle">
+                                            Groups</span>
+	                                </div>
+	                            </div>
+	                            <div class="widget-body am-text-center">
+	                                <span class="am-vertical-align-middle am-text-danger am-text-xxl">{{ groups }}</span>
+	                            </div>
+	                        </div>
+	                    </div>
+                    </a>
+                    <a href="/group/" class="am-text-success">
+	                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+	                        <div class="widget am-cf">
+	                            <div class="widget-head am-cf">
+	                                <div class="widget-title am-fl">项目总数</div>
+	                                <div class="widget-function am-fr">
+	                                    <span class="am-badge am-badge-secondary am-round am-vertical-align-middle">
+                                            Projects</span>
+	                                </div>
+	                            </div>
+	                            <div class="widget-body am-text-center">
+	                                <span class="am-vertical-align-middle am-text-secondary am-text-xxl">{{ projects }}</span>
+	                            </div>
+	                        </div>
+                        </div>
+                    </a>
+                    <a href="/user/" class="am-text-success">
+	                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+	                        <div class="widget am-cf">
+	                            <div class="widget-head am-cf">
+	                                <div class="widget-title am-fl">用户总数</div>
+	                                <div class="widget-function am-fr">
+	                                    <span class="am-badge am-badge-warning am-round am-vertical-align-middle">
+                                            Users</span>
+	                                </div>
+	                            </div>
+	                            <div class="widget-body am-text-center">
+	                                <span class="am-vertical-align-middle am-text-warning am-text-xxl">{{ users }}</span>
+	                            </div>
+	                        </div>
+                        </div>
+                    </a>
+	                </div>
+
+                <div class="row am-cf">
+                    <div class="am-u-sm-12 am-u-md-12">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class="widget-title am-fl">统计图表</div>
+                            </div>
+                            <div class="widget-body am-fr">
+                                <div style="height: 300px" id="tpl-echarts-B">
+
+                                </div>
+                            </div>
+                            <p id="name-hide" hidden></p>
+                            <p id="count-hide" hidden></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="/static/assets/js/amazeui.min.js"></script>
+    <script src="/static/assets/js/amazeui.datatables.min.js"></script>
+    <script src="/static/assets/js/dataTables.responsive.min.js"></script>
+    <script src="/static/assets/js/app.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $.ajax({
+                type:'post',
+                url:'/getAllItemsCount/',
+                dataType: 'json',
+                success:function(data){
+                    var name_str = [];
+                    var count_str = [];
+                    for (x in data) {
+                        name_str.push(data[x].name);
+                        count_str.push(data[x].count);
+                    }
+                    var echartsB = echarts.init(document.getElementById('tpl-echarts-B'));
+                    option = {
+                        title: {
+                            x: 'center',
+                            text: '主机组项目数量统计',
+                            subtext: '主机组(工程名-项目名)'
+                        },
+                        tooltip: {
+                            trigger: 'item'
+                        },
+                        toolbox: {
+                            show: true,
+                            feature: {
+                                dataView: {show: true, readOnly: false},
+                                restore: {show: true},
+                                saveAsImage: {show: true}
+                            }
+                        },
+                        calculable: true,
+                        grid: {
+                            borderWidth: 0,
+                            y: 80,
+                            y2: 10
+                        },
+                        xAxis: [
+                            {
+                                type: 'category',
+                                show: false,
+                                data: name_str
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                show: false
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '数据统计',
+                                type: 'bar',
+                                itemStyle: {
+                                    normal: {
+                                        color: function(params) {
+                                            // build a color map as your need.
+                                            var colorList = [
+                                               '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                                               '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                                               '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                                            ];
+                                            return colorList[params.dataIndex]
+                                        },
+                                        label: {
+                                            show: true,
+                                            position: 'top',
+                                            formatter: '{b}\n{c}'
+                                        }
+                                    }
+                                },
+                                data: count_str
+                            }
+                        ]
+                    };
+                    optionB = {
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            x: 'center',
+                            data: ['数量统计']
+                        },
+                        radar: [{
+                                indicator: [
+                                    { text: '主机数量', max: 20 },
+                                    { text: '主机组数', max: 10 },
+                                    { text: '项目数量', max: 5 },
+                                    { text: '用户数量', max: 8 }
+                                ],
+                                center: ['50%', '50%'],
+                                radius: 80
+                            }
+                        ],
+                        series: [{
+                                type: 'radar',
+                                tooltip: {
+                                    trigger: 'item'
+                                },
+                                itemStyle: { normal: { areaStyle: { type: 'default' } } },
+                                data: [{
+                                    value: [{{ hosts }}, {{ groups }}, {{ projects }}, {{ users }}],
+                                    name: '数量统计'
+                                }]
+                            }
+                        ]
+                    };
+                    echartsB.setOption(option);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
